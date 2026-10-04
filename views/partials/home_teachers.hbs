@@ -1,0 +1,16 @@
+<section class="bg-white py-20">
+  <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+    <h2 class="mb-4 text-3xl font-bold text-navy md:text-4xl">{{t.teacherRecruitment.title}}</h2>
+    <p class="mb-6 text-xl font-medium text-gold">{{t.teacherRecruitment.subtitle}}</p>
+    <p class="mx-auto mb-8 max-w-2xl leading-relaxed text-navy/70">{{t.teacherRecruitment.description}}</p>
+    <ul class="mb-8 space-y-4">
+      {{#each t.teacherRecruitment.requirements}}
+        <li class="mx-auto flex max-w-2xl items-center gap-3 rounded-xl border border-transparent bg-mist p-4 text-left transition-colors hover:border-line">
+          {{icon "circleCheck" "h-5 w-5 shrink-0 text-gold"}}
+          <span class="font-medium text-navy/80">{{this}}</span>
+        </li>
+      {{/each}}
+    </ul>
+    <a href="{{links.contact}}" class="btn btn-navy">{{t.teacherRecruitment.cta}}{{icon "arrowRight" "h-5 w-5"}}</a>
+  </div>
+</section>

@@ -1,5 +1,6 @@
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
+import type { SiteContent } from '../src/content/content.types.js';
 import { en } from '../src/content/en.js';
 import { fr } from '../src/content/fr.js';
 import { createTestApp, escapeHtml } from './create-test-app.js';
@@ -14,6 +15,21 @@ describe('Pages (e2e)', () => {
   afterEach(async () => {
     await app.close();
   });
+
+  const sectionTitles = (t: SiteContent) => [
+    t.hero.headline,
+    t.trustBlock.title,
+    t.problem.title,
+    t.solution.title,
+    t.howItWorks.title,
+    t.difference.title,
+    t.subjects.title,
+    t.targetAudience.title,
+    t.partnership.title,
+    t.testimonials.title,
+    t.teacherRecruitment.title,
+    t.finalCta.title,
+  ];
 
   it('renders the French home page at /', async () => {
     const res = await request(app.getHttpServer()).get('/').expect(200).expect('Content-Type', /html/);
@@ -62,5 +78,26 @@ describe('Pages (e2e)', () => {
     await request(server).get('/fonts/dm-sans-latin-wght-normal.woff2').expect(200);
     await request(server).get('/img/hero.jpg').expect(200);
     await request(server).get('/img/favicon.svg').expect(200);
+  });
+
+  it.each([
+    ['/', fr],
+    ['/en', en],
+  ])('renders every home section in order at %s', async (path, t) => {
+    const res = await request(app.getHttpServer()).get(path).expect(200);
+    const positions = sectionTitles(t).map((title) => res.text.indexOf(escapeHtml(title)));
+    expect(positions.every((p) => p >= 0)).toBe(true);
+    expect([...positions].sort((a, b) => a - b)).toEqual(positions);
+  });
+
+  it('renders section details: steps, subjects, levels, testimonials, partner logo', async () => {
+    const res = await request(app.getHttpServer()).get('/').expect(200);
+    for (const step of fr.howItWorks.steps) expect(res.text).toContain(escapeHtml(step.title));
+    for (const card of fr.subjects.cards) expect(res.text).toContain(escapeHtml(card.title));
+    for (const level of fr.targetAudience.levels) expect(res.text).toContain(`>${escapeHtml(level)}<`);
+    for (const card of fr.testimonials.cards) expect(res.text).toContain(escapeHtml(card.name));
+    expect(res.text).toContain('id="approach"');
+    expect(res.text).toContain('src="/img/suku.png"');
+    await request(app.getHttpServer()).get('/img/suku.png').expect(200).expect('Content-Type', /png/);
   });
 });

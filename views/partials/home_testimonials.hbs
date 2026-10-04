@@ -1,0 +1,20 @@
+<section class="bg-mist py-20">
+  <div class="container-page">
+    <h2 class="section-title">{{t.testimonials.title}}</h2>
+    <div class="gap-6 md:columns-2 lg:columns-3">
+      {{#each t.testimonials.cards}}
+        <figure class="mb-6 break-inside-avoid rounded-xl bg-white p-6 shadow-lg">
+          {{icon "quote" "mb-4 h-8 w-8 text-gold/30"}}
+          <blockquote class="mb-4 leading-relaxed text-navy/80 italic">{{content}}</blockquote>
+          <div class="mb-3 flex items-center gap-1" role="img" aria-label="{{rating}}/5">
+            {{#times rating}}{{icon "star" "h-4 w-4 fill-gold text-gold"}}{{/times}}
+          </div>
+          <figcaption>
+            <p class="font-semibold text-navy">{{name}}</p>
+            <p class="text-sm text-navy/60">{{role}}</p>
+          </figcaption>
+        </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<section class="bg-white py-20">
+  <div class="container-page">
+    <div class="mb-12 text-center">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-gold/10 px-4 py-2">
+        {{icon "handshake" "h-5 w-5 text-gold"}}
+        <span class="text-sm font-medium tracking-wide text-navy uppercase">{{t.partnership.partnerName}}</span>
+      </div>
+      <div class="mb-8 flex justify-center">
+        <img src="/img/suku.png" alt="{{t.partnership.logoAlt}}" class="h-auto w-32 object-contain sm:w-40 md:w-48" loading="lazy" />
+      </div>
+      <h2 class="mb-4 text-3xl font-bold text-navy md:text-4xl">{{t.partnership.title}}</h2>
+      <p class="mx-auto max-w-2xl text-lg leading-relaxed text-navy/70">{{t.partnership.description}}</p>
+    </div>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {{#each t.partnership.benefits}}
+        <article class="h-full rounded-xl bg-mist p-6 text-center shadow-lg transition-all duration-200 hover:shadow-xl">
+          <div class="mb-4 inline-flex rounded-xl bg-white p-3">{{icon this.icon "h-6 w-6 text-gold"}}</div>
+          <p class="text-sm leading-relaxed text-navy/80">{{text}}</p>
+        </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

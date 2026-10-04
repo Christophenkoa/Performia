@@ -1,0 +1,22 @@
+<section class="bg-white py-20">
+  <div class="container-page">
+    <div class="mb-12 text-center">
+      <h2 class="mb-4 text-3xl font-bold text-navy md:text-4xl">{{t.subjects.title}}</h2>
+      <p class="mx-auto max-w-2xl text-lg text-navy/70">{{t.subjects.subtitle}}</p>
+    </div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {{#each t.subjects.cards}}
+        <article class="card p-6">
+          <div class="mb-4 inline-flex rounded-2xl bg-navy p-4">{{icon this.icon "h-8 w-8 text-gold"}}</div>
+          <h3 class="mb-4 text-2xl font-semibold text-navy">{{title}}</h3>
+          <p class="mb-4 leading-relaxed text-navy/70">{{description}}</p>
+          <ul class="flex flex-wrap gap-2">
+            {{#each levels}}
+              <li class="rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-navy">{{this}}</li>
+            {{/each}}
+          </ul>
+        </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

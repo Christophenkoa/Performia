@@ -1,0 +1,18 @@
+<section class="bg-mist py-20">
+  <div class="container-page">
+    <h2 class="section-title">{{t.difference.title}}</h2>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      {{#each t.difference.blocks}}
+        <article class="card p-6">
+          <div class="flex items-start gap-4">
+            <div class="rounded-xl bg-gold/10 p-3">{{icon this.icon "h-6 w-6 text-gold"}}</div>
+            <div>
+              <h3 class="mb-2 text-xl font-semibold text-navy">{{title}}</h3>
+              <p class="leading-relaxed text-navy/70">{{description}}</p>
+            </div>
+          </div>
+        </article>
+      {{/each}}
+    </div>
+  </div>
+</section>
