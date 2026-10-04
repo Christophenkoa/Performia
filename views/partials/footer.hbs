@@ -1,33 +1,31 @@
-<footer class="bg-navy text-white">
-  <div class="container-page py-12">
-    <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
-      <div>
-        <a href="{{links.home}}" class="mb-4 flex items-center gap-2">
-          {{icon "graduationCap" "h-8 w-8 text-gold"}}
-          <span class="font-display text-xl font-bold">{{t.brand}}</span>
-        </a>
-        <p class="text-sm leading-relaxed opacity-90">{{t.footer.tagline}}</p>
-      </div>
-      <div>
-        <h2 class="mb-4 font-sans text-sm font-semibold tracking-normal text-gold">{{t.footer.contact}}</h2>
-        <ul class="space-y-3">
-          <li><a href="{{contactDetails.phoneHref}}" class="footer-link">{{icon "phone" "h-4 w-4"}}<span>{{contactDetails.phoneDisplay}}</span></a></li>
-          <li><a href="{{contactDetails.whatsappUrl}}" target="_blank" rel="noopener noreferrer" class="footer-link">{{icon "messageCircle" "h-4 w-4"}}<span>{{t.footer.whatsapp}}</span></a></li>
-          <li><a href="mailto:{{contactDetails.email}}" class="footer-link">{{icon "mail" "h-4 w-4"}}<span>{{contactDetails.email}}</span></a></li>
-          <li class="footer-link">{{icon "mapPin" "h-4 w-4"}}<span>{{t.contact.info.address}}</span></li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="mb-4 font-sans text-sm font-semibold tracking-normal text-gold">{{t.footer.followUs}}</h2>
-        <div class="flex gap-4">
-          <a href="{{contactDetails.facebookUrl}}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">{{icon "facebook" "h-5 w-5"}}</a>
-          <a href="{{contactDetails.instagramUrl}}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">{{icon "instagram" "h-5 w-5"}}</a>
-        </div>
-        <p class="mt-4 text-sm opacity-80">{{t.footer.partnership}}</p>
-      </div>
+<footer class="border-t border-line bg-white">
+  <div class="container-page grid grid-cols-1 gap-10 py-14 md:grid-cols-3">
+    <div class="flex flex-col gap-4">
+      <a href="{{links.home}}" class="flex items-center gap-2.5">
+        {{> logo_mark size=36}}
+        <span class="font-display text-xl font-bold tracking-tight text-navy">{{t.brand}}</span>
+      </a>
+      <p class="max-w-xs text-sm leading-relaxed text-muted">{{t.footer.tagline}}</p>
     </div>
-    <div class="border-t border-white/10 pt-8">
-      <p class="text-center text-sm opacity-80 md:text-left">{{t.footer.copyright}}</p>
+    <div>
+      <h2 class="footer-title">{{t.footer.contact}}</h2>
+      <ul class="space-y-3">
+        <li><a href="{{contactDetails.phoneHref}}" class="footer-link">{{icon "phone" "h-4 w-4"}}<span>{{contactDetails.phoneDisplay}}</span></a></li>
+        <li><a href="{{contactDetails.whatsappUrl}}" target="_blank" rel="noopener noreferrer" class="footer-link">{{icon "messageCircle" "h-4 w-4"}}<span>{{t.footer.whatsapp}}</span></a></li>
+        <li><a href="mailto:{{contactDetails.email}}" class="footer-link">{{icon "mail" "h-4 w-4"}}<span>{{contactDetails.email}}</span></a></li>
+        <li class="flex items-center gap-2 text-sm text-navy">{{icon "mapPin" "h-4 w-4"}}<span>{{t.contact.info.address}}</span></li>
+      </ul>
     </div>
+    <div>
+      <h2 class="footer-title">{{t.footer.followUs}}</h2>
+      <div class="flex gap-3">
+        <a href="{{contactDetails.facebookUrl}}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">{{icon "facebook" "h-5 w-5"}}</a>
+        <a href="{{contactDetails.instagramUrl}}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">{{icon "instagram" "h-5 w-5"}}</a>
+      </div>
+      <p class="mt-4 text-sm text-muted">{{t.footer.partnership}}</p>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <p class="container-page py-6 text-sm text-muted">{{t.footer.copyright}}</p>
   </div>
 </footer>

@@ -3,15 +3,15 @@ import type { SiteContent } from './content.types.js';
 // Copy taken from the live site helloperformia.com (2026-10-04).
 // "TODO: verify" marks figures, quotes and promises that must be confirmed with a source before launch.
 export const fr: SiteContent = {
-  brand: 'Academic Excellence',
+  brand: 'Performia',
   meta: {
-    homeTitle: 'Academic Excellence Platform - Encadrement académique de qualité',
+    homeTitle: 'Performia - Cours de soutien scolaire et répétitions au secondaire',
     homeDescription:
-      'Offrez à votre enfant les meilleurs enseignants pour réussir au secondaire. Encadrement personnalisé en mathématiques, physique et chimie.',
-    contactTitle: 'Contactez-nous - Academic Excellence Platform',
+      "Des répétiteurs qualifiés pour réussir au secondaire. Cours de soutien en mathématiques, physique, chimie et autres matières sur demande, en complément de l'école, à Yaoundé, Douala et en ligne.",
+    contactTitle: 'Contactez-nous - Performia',
     contactDescription: 'Nous sommes là pour répondre à toutes vos questions',
   },
-  nav: { ariaLabel: 'Navigation principale', home: 'Accueil', contact: 'Contact', menu: 'Menu', switchLabel: 'EN', switchLang: 'en' },
+  nav: { ariaLabel: 'Navigation principale', home: 'Accueil', approach: 'Notre approche', subjects: 'Matières', reviews: 'Avis des parents', contact: 'Contact', cta: 'Inscrire mon enfant', menu: 'Menu', switchLabel: 'EN', switchLang: 'en' },
   hero: {
     formatBadge: 'Cours en présentiel ou en ligne selon vos préférences',
     headline: 'Offrez à votre enfant les meilleurs enseignants pour réussir au secondaire',
@@ -230,12 +230,12 @@ export const fr: SiteContent = {
     ctaSecondary: 'Nous contacter',
   },
   footer: {
-    tagline: 'Encadrement académique de qualité pour les élèves du secondaire',
+    tagline: "Cours de soutien scolaire et répétitions pour les élèves du secondaire, en complément de l'école.",
     contact: 'Contact',
     whatsapp: 'WhatsApp',
     followUs: 'Suivez-nous',
     partnership: 'Partenaire : Suku',
-    copyright: '© 2026 Academic Excellence Platform. Tous droits réservés.',
+    copyright: '© 2026 Performia. Tous droits réservés.',
   },
   contact: {
     title: 'Contactez-nous',

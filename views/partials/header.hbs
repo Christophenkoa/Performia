@@ -1,27 +1,32 @@
-<header class="sticky top-0 z-50 bg-navy text-white shadow-lg">
-  <div class="container-page">
-    <div class="flex h-16 items-center justify-between">
-      <a href="{{links.home}}" class="group flex items-center gap-2">
-        {{icon "graduationCap" "h-8 w-8 text-gold transition-transform duration-200 group-hover:scale-110"}}
-        <span class="font-display text-xl font-bold">{{t.brand}}</span>
-      </a>
+<header class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur">
+  <div class="container-page flex h-18 items-center justify-between gap-4">
+    <a href="{{links.home}}" class="flex items-center gap-2.5">
+      {{> logo_mark size=40}}
+      <span class="font-display text-[22px] font-bold tracking-tight text-navy">{{t.brand}}</span>
+    </a>
 
-      <nav class="hidden items-center gap-8 md:flex" aria-label="{{t.nav.ariaLabel}}">
-        <a href="{{links.home}}" class="nav-link{{#if isHome}} nav-link-active{{/if}}"{{#if isHome}} aria-current="page"{{/if}}>{{t.nav.home}}</a>
-        <a href="{{links.contact}}" class="nav-link{{#if isContact}} nav-link-active{{/if}}"{{#if isContact}} aria-current="page"{{/if}}>{{t.nav.contact}}</a>
-        <a href="{{switchPath}}" hreflang="{{t.nav.switchLang}}" lang="{{t.nav.switchLang}}" class="lang-switch">{{icon "globe" "h-4 w-4"}}{{t.nav.switchLabel}}</a>
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="{{t.nav.ariaLabel}}">
+      <a href="{{links.home}}#approche" class="nav-link">{{t.nav.approach}}</a>
+      <a href="{{links.home}}#matieres" class="nav-link">{{t.nav.subjects}}</a>
+      <a href="{{links.home}}#avis" class="nav-link">{{t.nav.reviews}}</a>
+      <a href="{{links.contact}}" class="nav-link{{#if isContact}} nav-link-active{{/if}}"{{#if isContact}} aria-current="page"{{/if}}>{{t.nav.contact}}</a>
+      <a href="{{switchPath}}" hreflang="{{t.nav.switchLang}}" lang="{{t.nav.switchLang}}" class="lang-switch">{{icon "globe" "h-4 w-4"}}{{t.nav.switchLabel}}</a>
+      <a href="{{links.contact}}" class="btn btn-navy btn-sm">{{t.nav.cta}}</a>
+    </nav>
+
+    <details class="relative lg:hidden">
+      <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-line" aria-label="{{t.nav.menu}}">
+        {{icon "menu" "h-5 w-5"}}
+      </summary>
+      <nav class="absolute top-14 right-0 flex w-64 flex-col gap-4 rounded-2xl border border-line bg-white p-5 shadow-xl" aria-label="{{t.nav.ariaLabel}}">
+        <a href="{{links.home}}" class="nav-link{{#if isHome}} nav-link-active{{/if}}">{{t.nav.home}}</a>
+        <a href="{{links.home}}#approche" class="nav-link">{{t.nav.approach}}</a>
+        <a href="{{links.home}}#matieres" class="nav-link">{{t.nav.subjects}}</a>
+        <a href="{{links.home}}#avis" class="nav-link">{{t.nav.reviews}}</a>
+        <a href="{{links.contact}}" class="nav-link{{#if isContact}} nav-link-active{{/if}}">{{t.nav.contact}}</a>
+        <a href="{{switchPath}}" hreflang="{{t.nav.switchLang}}" lang="{{t.nav.switchLang}}" class="lang-switch self-start">{{icon "globe" "h-4 w-4"}}{{t.nav.switchLabel}}</a>
+        <a href="{{links.contact}}" class="btn btn-navy btn-sm">{{t.nav.cta}}</a>
       </nav>
-
-      <details class="relative md:hidden">
-        <summary class="cursor-pointer list-none rounded-lg p-2 hover:bg-white/10" aria-label="{{t.nav.menu}}">
-          {{icon "menu" "h-6 w-6"}}
-        </summary>
-        <nav class="absolute top-12 right-0 flex w-56 flex-col gap-4 rounded-lg bg-navy p-4 shadow-xl" aria-label="{{t.nav.ariaLabel}}">
-          <a href="{{links.home}}" class="nav-link{{#if isHome}} nav-link-active{{/if}}">{{t.nav.home}}</a>
-          <a href="{{links.contact}}" class="nav-link{{#if isContact}} nav-link-active{{/if}}">{{t.nav.contact}}</a>
-          <a href="{{switchPath}}" hreflang="{{t.nav.switchLang}}" lang="{{t.nav.switchLang}}" class="lang-switch">{{icon "globe" "h-4 w-4"}}{{t.nav.switchLabel}}</a>
-        </nav>
-      </details>
-    </div>
+    </details>
   </div>
 </header>

@@ -39,7 +39,18 @@ export interface ErrorCopy {
 export interface SiteContent {
   brand: string;
   meta: { homeTitle: string; homeDescription: string; contactTitle: string; contactDescription: string };
-  nav: { ariaLabel: string; home: string; contact: string; menu: string; switchLabel: string; switchLang: Lang };
+  nav: {
+    ariaLabel: string;
+    home: string;
+    approach: string;
+    subjects: string;
+    reviews: string;
+    contact: string;
+    cta: string;
+    menu: string;
+    switchLabel: string;
+    switchLang: Lang;
+  };
   hero: {
     formatBadge: string;
     headline: string;

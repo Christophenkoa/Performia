@@ -121,4 +121,33 @@ describe('Pages (e2e)', () => {
     expect(res.text).toContain('rel="canonical"');
     expect(res.text).not.toContain('noindex');
   });
+
+  it('shows the Performia brand with the Envol mark and no old brand name', async () => {
+    const server = app.getHttpServer();
+    const home = await request(server).get('/').expect(200);
+    expect(home.text).toContain(`<title>${escapeHtml(fr.meta.homeTitle)}</title>`);
+    expect(fr.meta.homeTitle.startsWith('Performia')).toBe(true);
+    expect(home.text).toContain('viewBox="0 0 64 64"');
+    expect(home.text).toContain('>Performia<');
+    expect(home.text).toContain(escapeHtml(fr.footer.copyright));
+    expect(home.text).toContain(escapeHtml(fr.nav.cta));
+    for (const path of ['/', '/en', '/contact', '/en/contact', '/does-not-exist']) {
+      const res = await request(server).get(path);
+      expect(res.text).not.toContain('Academic Excellence');
+    }
+  });
+
+  it('serves the brand icons, manifest and Sora font', async () => {
+    const server = app.getHttpServer();
+    const home = await request(server).get('/').expect(200);
+    expect(home.text).toContain('<link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />');
+    expect(home.text).toContain('<link rel="manifest" href="/site.webmanifest" />');
+    await request(server).get('/fonts/sora-latin-wght-normal.woff2').expect(200);
+    await request(server).get('/favicon.ico').expect(200);
+    await request(server).get('/img/apple-touch-icon.png').expect(200).expect('Content-Type', /png/);
+    await request(server).get('/img/icon-192.png').expect(200);
+    await request(server).get('/img/icon-512.png').expect(200);
+    const manifest = await request(server).get('/site.webmanifest').expect(200);
+    expect(JSON.parse(manifest.text)).toMatchObject({ name: 'Performia', theme_color: '#13294B' });
+  });
 });

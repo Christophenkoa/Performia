@@ -3,15 +3,15 @@ import type { SiteContent } from './content.types.js';
 // Copy taken from the live site helloperformia.com (2026-10-04).
 // "TODO: verify" marks figures, quotes and promises that must be confirmed with a source before launch.
 export const en: SiteContent = {
-  brand: 'Academic Excellence',
+  brand: 'Performia',
   meta: {
-    homeTitle: 'Academic Excellence Platform - Quality academic support',
+    homeTitle: 'Performia - Tutoring for secondary school students',
     homeDescription:
-      'Give your child the best teachers to succeed in secondary school. Personalized support in mathematics, physics and chemistry.',
-    contactTitle: 'Contact us - Academic Excellence Platform',
+      'Qualified tutors to succeed in secondary school. Tutoring in mathematics, physics, chemistry and other subjects on request, alongside school, in Yaoundé, Douala and online.',
+    contactTitle: 'Contact us - Performia',
     contactDescription: 'We are here to answer all your questions',
   },
-  nav: { ariaLabel: 'Main navigation', home: 'Home', contact: 'Contact', menu: 'Menu', switchLabel: 'FR', switchLang: 'fr' },
+  nav: { ariaLabel: 'Main navigation', home: 'Home', approach: 'Our approach', subjects: 'Subjects', reviews: 'Parent reviews', contact: 'Contact', cta: 'Enroll my child', menu: 'Menu', switchLabel: 'FR', switchLang: 'fr' },
   hero: {
     formatBadge: 'In-person or online classes according to your preferences',
     headline: 'Give your child the best teachers to succeed in secondary school',
@@ -226,12 +226,12 @@ export const en: SiteContent = {
     ctaSecondary: 'Contact us',
   },
   footer: {
-    tagline: 'Quality academic support for secondary school students',
+    tagline: 'Tutoring for secondary school students, alongside school.',
     contact: 'Contact',
     whatsapp: 'WhatsApp',
     followUs: 'Follow us',
     partnership: 'Partner: Suku',
-    copyright: '© 2026 Academic Excellence Platform. All rights reserved.',
+    copyright: '© 2026 Performia. All rights reserved.',
   },
   contact: {
     title: 'Contact us',

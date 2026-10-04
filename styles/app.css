@@ -10,84 +10,116 @@
 }
 
 @font-face {
-  font-family: 'Playfair Display';
+  font-family: 'Sora';
   font-style: normal;
   font-display: swap;
-  font-weight: 400 900;
-  src: url('/fonts/playfair-display-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 800;
+  src: url('/fonts/sora-latin-wght-normal.woff2') format('woff2');
 }
 
-/* Colors taken from the live site (hsl values in its Tailwind classes). */
+/* Performia brand tokens (see brand/README.md). */
 @theme {
-  --color-navy: hsl(210 52% 24%);
-  --color-navy-deep: hsl(210 52% 20%);
-  --color-navy-dark: hsl(210 52% 18%);
-  --color-gold: hsl(43 64% 53%);
-  --color-gold-dark: hsl(43 64% 48%);
-  --color-mist: hsl(210 20% 96%);
-  --color-line: hsl(210 20% 91%);
+  --color-navy: #13294b;
+  --color-navy-deep: #0f2140;
+  --color-navy-dark: #0b1a33;
+  --color-gold: #d4a83a;
+  --color-gold-dark: #c29630;
+  --color-sand: #f3eedf;
+  --color-mist: #f7f9fc;
+  --color-line: #e3e8ef;
+  --color-muted: #44546a;
+  --color-on-navy: #d6dde8;
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
   body {
     @apply bg-white font-sans text-navy antialiased;
   }
   h1,
-  h2 {
-    @apply font-display tracking-tight;
+  h2,
+  h3 {
+    @apply font-display;
   }
   summary::-webkit-details-marker {
     display: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
   }
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[1200px] px-6;
   }
+  .h-section {
+    @apply text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-[44px] lg:leading-[1.1];
+  }
+  .eyebrow {
+    @apply text-sm font-semibold tracking-[0.08em] text-gold uppercase;
+  }
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold text-navy;
+  }
+  /* Legacy home-page classes, removed in Task 2 together with the old partials. */
   .section-title {
     @apply mb-12 text-center text-3xl font-bold text-navy md:text-4xl;
   }
   .card {
-    @apply h-full rounded-xl bg-white shadow-lg transition-all duration-200 hover:shadow-xl;
+    @apply h-full rounded-3xl border border-line bg-white transition-shadow duration-200 hover:shadow-lg;
   }
   .btn {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-8 text-base font-semibold transition-all duration-200 active:scale-[0.98];
+    @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 text-base font-semibold transition-colors duration-200 active:scale-[0.98];
+  }
+  .btn-sm {
+    @apply min-h-10 px-5 text-sm;
   }
   .btn-gold {
     @apply bg-gold text-navy hover:bg-gold-dark;
   }
   .btn-navy {
-    @apply bg-navy text-white hover:bg-navy-deep;
+    @apply bg-navy text-white hover:bg-navy-dark;
+  }
+  .btn-outline {
+    @apply border-[1.5px] border-navy text-navy hover:bg-navy hover:text-white;
   }
   .btn-outline-light {
-    @apply border border-white/30 bg-transparent text-white hover:bg-white hover:text-navy;
+    @apply border-[1.5px] border-white/50 text-white hover:bg-white hover:text-navy;
   }
   .nav-link {
-    @apply text-sm font-medium text-white transition-all duration-200 hover:text-gold;
+    @apply text-[15px] font-medium text-navy decoration-gold decoration-2 underline-offset-8 transition-colors hover:underline;
   }
   .nav-link-active {
-    @apply text-gold underline decoration-2 underline-offset-8;
+    @apply underline;
   }
   .lang-switch {
-    @apply inline-flex h-9 w-fit items-center gap-2 rounded-md border border-white/30 px-3 text-sm text-white transition-all duration-200 hover:bg-white hover:text-navy;
+    @apply inline-flex h-9 items-center gap-1.5 rounded-full border border-line px-3 text-[13px] font-semibold text-navy transition-colors hover:border-navy;
+  }
+  .footer-title {
+    @apply mb-4 font-sans text-sm font-semibold tracking-wider text-muted uppercase;
   }
   .footer-link {
-    @apply flex items-center gap-2 text-sm transition-all duration-200 hover:text-gold;
+    @apply flex items-center gap-2 text-sm text-navy transition-colors hover:underline;
   }
   .social-link {
-    @apply rounded-lg bg-white/10 p-2 text-white transition-all duration-200 hover:bg-gold hover:text-navy;
+    @apply inline-flex rounded-full border border-line p-2.5 text-navy transition-colors hover:bg-navy hover:text-white;
   }
   .info-item {
-    @apply flex items-start gap-4 rounded-xl bg-mist p-4;
+    @apply flex items-start gap-4 rounded-2xl bg-mist p-5;
   }
   .field {
-    @apply w-full rounded-md border border-line bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gold focus:outline-none aria-invalid:border-red-500;
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-navy placeholder:text-muted/70 focus:border-navy focus:ring-2 focus:ring-gold/60 focus:outline-none aria-invalid:border-red-600;
   }
   .field-label {
-    @apply mb-2 block text-sm font-medium text-navy;
+    @apply mb-2 block text-sm font-semibold text-navy;
   }
   .field-error {
     @apply mt-2 text-sm text-red-700;
