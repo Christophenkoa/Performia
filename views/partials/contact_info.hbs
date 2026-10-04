@@ -1,0 +1,34 @@
+<div class="space-y-8">
+  <div>
+    <h2 class="mb-6 text-2xl font-bold text-navy">{{t.contact.info.title}}</h2>
+    <ul class="space-y-4">
+      <li class="info-item">
+        {{icon "mapPin" "mt-0.5 h-5 w-5 shrink-0 text-gold"}}
+        <div><p class="font-medium text-navy">{{t.contact.info.addressLabel}}</p><p class="text-sm text-navy/70">{{t.contact.info.address}}</p></div>
+      </li>
+      <li class="info-item">
+        {{icon "phone" "mt-0.5 h-5 w-5 shrink-0 text-gold"}}
+        <div><p class="font-medium text-navy">{{t.contact.info.phoneLabel}}</p><a href="{{contactDetails.phoneHref}}" class="text-sm text-navy/70 hover:text-navy">{{contactDetails.phoneDisplay}}</a></div>
+      </li>
+      <li class="info-item">
+        {{icon "messageCircle" "mt-0.5 h-5 w-5 shrink-0 text-gold"}}
+        <div><p class="font-medium text-navy">{{t.contact.info.whatsappLabel}}</p><a href="{{contactDetails.whatsappUrl}}" target="_blank" rel="noopener noreferrer" class="text-sm text-navy/70 hover:text-navy">{{contactDetails.phoneDisplay}}</a></div>
+      </li>
+      <li class="info-item">
+        {{icon "mail" "mt-0.5 h-5 w-5 shrink-0 text-gold"}}
+        <div><p class="font-medium text-navy">{{t.contact.info.emailLabel}}</p><a href="mailto:{{contactDetails.email}}" class="text-sm text-navy/70 hover:text-navy">{{contactDetails.email}}</a></div>
+      </li>
+      <li class="info-item">
+        {{icon "clock" "mt-0.5 h-5 w-5 shrink-0 text-gold"}}
+        <div><p class="font-medium text-navy">{{t.contact.info.hoursLabel}}</p><p class="text-sm text-navy/70">{{t.contact.info.hours}}</p></div>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h3 class="mb-4 text-lg font-semibold text-navy">{{t.contact.info.socialTitle}}</h3>
+    <div class="flex gap-4">
+      <a href="{{contactDetails.facebookUrl}}" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-navy p-3 text-white transition-all duration-200 hover:bg-gold hover:text-navy" aria-label="Facebook">{{icon "facebook" "h-6 w-6"}}</a>
+      <a href="{{contactDetails.instagramUrl}}" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-navy p-3 text-white transition-all duration-200 hover:bg-gold hover:text-navy" aria-label="Instagram">{{icon "instagram" "h-6 w-6"}}</a>
+    </div>
+  </div>
+</div>

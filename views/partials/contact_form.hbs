@@ -1,0 +1,42 @@
+<form method="post" action="{{links.contact}}" class="space-y-6">
+  <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+  {{!-- Honeypot: hidden from people, filled by bots. --}}
+  <div class="hidden" aria-hidden="true">
+    <label for="website">Website</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="name" class="field-label">{{t.contact.form.name}}</label>
+    <input id="name" name="name" type="text" required minlength="2" maxlength="100" autocomplete="name" value="{{values.name}}" placeholder="{{t.contact.form.namePlaceholder}}" class="field"{{#if errors.name}} aria-invalid="true" aria-describedby="name-error"{{/if}} />
+    {{#if errors.name}}<p id="name-error" class="field-error">{{errors.name}}</p>{{/if}}
+  </div>
+
+  <div>
+    <label for="email" class="field-label">{{t.contact.form.email}}</label>
+    <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" value="{{values.email}}" placeholder="{{t.contact.form.emailPlaceholder}}" class="field"{{#if errors.email}} aria-invalid="true" aria-describedby="email-error"{{/if}} />
+    {{#if errors.email}}<p id="email-error" class="field-error">{{errors.email}}</p>{{/if}}
+  </div>
+
+  <div>
+    <label for="phone" class="field-label">{{t.contact.form.phone}}</label>
+    <input id="phone" name="phone" type="tel" required minlength="8" maxlength="30" autocomplete="tel" value="{{values.phone}}" placeholder="{{t.contact.form.phonePlaceholder}}" class="field"{{#if errors.phone}} aria-invalid="true" aria-describedby="phone-error"{{/if}} />
+    {{#if errors.phone}}<p id="phone-error" class="field-error">{{errors.phone}}</p>{{/if}}
+  </div>
+
+  <div>
+    <label for="subject" class="field-label">{{t.contact.form.subject}}</label>
+    <input id="subject" name="subject" type="text" required minlength="3" maxlength="150" value="{{values.subject}}" placeholder="{{t.contact.form.subjectPlaceholder}}" class="field"{{#if errors.subject}} aria-invalid="true" aria-describedby="subject-error"{{/if}} />
+    {{#if errors.subject}}<p id="subject-error" class="field-error">{{errors.subject}}</p>{{/if}}
+  </div>
+
+  <div>
+    <label for="message" class="field-label">{{t.contact.form.message}}</label>
+    <textarea id="message" name="message" rows="5" required minlength="10" maxlength="2000" placeholder="{{t.contact.form.messagePlaceholder}}" class="field"{{#if errors.message}} aria-invalid="true" aria-describedby="message-error"{{/if}}>{{values.message}}</textarea>
+    {{#if errors.message}}<p id="message-error" class="field-error">{{errors.message}}</p>{{/if}}
+  </div>
+
+  <p class="text-xs text-navy/60">{{t.contact.privacyNotice}}</p>
+  <button type="submit" class="btn btn-gold w-full">{{t.contact.form.submit}}</button>
+</form>
