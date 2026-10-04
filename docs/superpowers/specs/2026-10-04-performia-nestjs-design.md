@@ -2,6 +2,7 @@
 
 Date: 2026-10-04
 Status: Approved (rev. 2: contact details, form fields and stack confirmed by probe)
+Note: brand, visual design and home-page structure are superseded by docs/superpowers/specs/2026-10-04-performia-redesign-design.md.
 
 ## Goal
 

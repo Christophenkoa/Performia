@@ -19,6 +19,7 @@ export const fr: SiteContent = {
       "En complément de l'école, un accompagnement personnalisé en mathématiques, physique, chimie et d'autres matières sur demande, de la Sixième à la Terminale.",
     ctaPrimary: 'Inscrire mon enfant',
     ctaSecondary: 'Découvrir le programme',
+    // TODO: verify the number of families claimed
     trustText: 'Rejoignez de nombreuses familles qui nous font confiance',
     photoAlt: "Enseignant devant une carte de l'Afrique dans une salle de classe",
     photoCaption: 'Un ou plusieurs enseignants choisis selon les besoins de votre enfant',
@@ -40,6 +41,7 @@ export const fr: SiteContent = {
         highlight: false,
       },
       {
+        // TODO: verify result tracking and regular reports
         title: 'Résultats suivis',
         description: "Des rapports réguliers pour mesurer les progrès et ajuster l'accompagnement.",
         highlight: true,
@@ -50,6 +52,7 @@ export const fr: SiteContent = {
         highlight: false,
       },
       {
+        // TODO: verify teacher selection and evaluation process
         title: 'Enseignants vérifiés',
         description: 'Tous nos enseignants passent par une sélection rigoureuse et sont régulièrement évalués.',
         highlight: false,
@@ -63,6 +66,7 @@ export const fr: SiteContent = {
       { title: 'Inscription et diagnostic', description: 'Vous choisissez le format, nous évaluons le niveau de votre enfant.' },
       { title: 'Choix des enseignants', description: 'Un ou plusieurs enseignants qualifiés, selon les besoins identifiés.' },
       { title: 'Début des cours', description: "Selon l'horaire convenu, en présentiel ou en ligne." },
+      // TODO: verify regular reports are actually delivered
       { title: 'Suivi et ajustement', description: 'Des rapports réguliers et un programme ajusté en continu.' },
     ],
     reassurance: "Vous pouvez commencer à tout moment de l'année scolaire.",
@@ -136,6 +140,7 @@ export const fr: SiteContent = {
   },
   finalCta: {
     title: 'Prêt à offrir le meilleur à votre enfant ?',
+    // TODO: verify the fast reply promise
     subtitle: "Inscrivez-vous dès aujourd'hui. Nous vous répondons rapidement.",
     ctaPrimary: 'Inscrire mon enfant',
     ctaSecondary: 'Écrire sur WhatsApp',

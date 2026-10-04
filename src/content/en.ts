@@ -19,6 +19,7 @@ export const en: SiteContent = {
       'Alongside school, personalized support in mathematics, physics, chemistry and other subjects on request, from Grade 6 to Grade 12.',
     ctaPrimary: 'Enroll my child',
     ctaSecondary: 'Discover the program',
+    // TODO: verify the number of families claimed
     trustText: 'Join many families who trust us',
     photoAlt: 'Teacher in front of a map of Africa in a classroom',
     photoCaption: "One or more teachers chosen for your child's needs",
@@ -39,6 +40,7 @@ export const en: SiteContent = {
         highlight: false,
       },
       {
+        // TODO: verify result tracking and regular reports
         title: 'Tracked results',
         description: 'Regular reports to measure progress and adjust the support.',
         highlight: true,
@@ -49,6 +51,7 @@ export const en: SiteContent = {
         highlight: false,
       },
       {
+        // TODO: verify teacher selection and evaluation process
         title: 'Verified teachers',
         description: 'All our teachers go through a rigorous selection and are regularly evaluated.',
         highlight: false,
@@ -62,6 +65,7 @@ export const en: SiteContent = {
       { title: 'Registration and assessment', description: "You choose the format, we assess your child's level." },
       { title: 'Choice of teachers', description: 'One or more qualified teachers, based on the identified needs.' },
       { title: 'Classes begin', description: 'On the agreed schedule, in person or online.' },
+      // TODO: verify regular reports are actually delivered
       { title: 'Follow-up and adjustment', description: 'Regular reports and a continuously adjusted program.' },
     ],
     reassurance: 'You can start at any time during the school year.',
@@ -133,6 +137,7 @@ export const en: SiteContent = {
   },
   finalCta: {
     title: 'Ready to give your child the best?',
+    // TODO: verify the fast reply promise
     subtitle: 'Enroll today. We will get back to you quickly.',
     ctaPrimary: 'Enroll my child',
     ctaSecondary: 'Write on WhatsApp',
