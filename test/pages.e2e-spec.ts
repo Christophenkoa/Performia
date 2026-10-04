@@ -162,7 +162,7 @@ describe('Pages (e2e)', () => {
 
   it('shows the Envol mark on error pages', async () => {
     const res = await request(app.getHttpServer()).get('/does-not-exist').expect(404);
-    const main = res.text.slice(res.text.indexOf('<main'));
+    const main = res.text.slice(res.text.indexOf('<main'), res.text.indexOf('</main>'));
     expect(main).toContain('viewBox="0 0 64 64"');
   });
 });
