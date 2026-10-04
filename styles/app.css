@@ -1,0 +1,95 @@
+@import 'tailwindcss' source(none);
+@source '../views';
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 1000;
+  src: url('/fonts/dm-sans-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url('/fonts/playfair-display-latin-wght-normal.woff2') format('woff2');
+}
+
+/* Colors taken from the live site (hsl values in its Tailwind classes). */
+@theme {
+  --color-navy: hsl(210 52% 24%);
+  --color-navy-deep: hsl(210 52% 20%);
+  --color-navy-dark: hsl(210 52% 18%);
+  --color-gold: hsl(43 64% 53%);
+  --color-gold-dark: hsl(43 64% 48%);
+  --color-mist: hsl(210 20% 96%);
+  --color-line: hsl(210 20% 91%);
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-navy antialiased;
+  }
+  h1,
+  h2 {
+    @apply font-display tracking-tight;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .section-title {
+    @apply mb-12 text-center text-3xl font-bold text-navy md:text-4xl;
+  }
+  .card {
+    @apply h-full rounded-xl bg-white shadow-lg transition-all duration-200 hover:shadow-xl;
+  }
+  .btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-8 text-base font-semibold transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-gold {
+    @apply bg-gold text-navy hover:bg-gold-dark;
+  }
+  .btn-navy {
+    @apply bg-navy text-white hover:bg-navy-deep;
+  }
+  .btn-outline-light {
+    @apply border border-white/30 bg-transparent text-white hover:bg-white hover:text-navy;
+  }
+  .nav-link {
+    @apply text-sm font-medium text-white transition-all duration-200 hover:text-gold;
+  }
+  .nav-link-active {
+    @apply text-gold underline decoration-2 underline-offset-8;
+  }
+  .lang-switch {
+    @apply inline-flex h-9 w-fit items-center gap-2 rounded-md border border-white/30 px-3 text-sm text-white transition-all duration-200 hover:bg-white hover:text-navy;
+  }
+  .footer-link {
+    @apply flex items-center gap-2 text-sm transition-all duration-200 hover:text-gold;
+  }
+  .social-link {
+    @apply rounded-lg bg-white/10 p-2 text-white transition-all duration-200 hover:bg-gold hover:text-navy;
+  }
+  .info-item {
+    @apply flex items-start gap-4 rounded-xl bg-mist p-4;
+  }
+  .field {
+    @apply w-full rounded-md border border-line bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gold focus:outline-none aria-invalid:border-red-500;
+  }
+  .field-label {
+    @apply mb-2 block text-sm font-medium text-navy;
+  }
+  .field-error {
+    @apply mt-2 text-sm text-red-700;
+  }
+}

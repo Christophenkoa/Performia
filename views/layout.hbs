@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="{{lang}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{pageTitle}}</title>
+    <meta name="description" content="{{pageDescription}}" />
+    <link rel="canonical" href="{{siteUrl}}{{currentPath}}" />
+    <link rel="alternate" hreflang="fr" href="{{siteUrl}}{{alternates.fr}}" />
+    <link rel="alternate" hreflang="en" href="{{siteUrl}}{{alternates.en}}" />
+    <link rel="alternate" hreflang="x-default" href="{{siteUrl}}{{alternates.fr}}" />
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+    <link rel="preload" href="/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    {{> header}}
+    <main class="flex-1">
+      {{{body}}}
+    </main>
+    {{> footer}}
+  </body>
+</html>
