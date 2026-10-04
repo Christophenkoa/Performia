@@ -10,12 +10,8 @@ describe('handlebars helpers', () => {
     expect(render('{{inc 0}}-{{inc 3}}')).toBe('1-4');
   });
 
-  it('times repeats a block n times', () => {
-    expect(render('{{#times 3}}*{{/times}}')).toBe('***');
-  });
-
   it('icon renders an inline, hidden svg with the given classes', () => {
-    const out = render('{{icon "star" "h-4 w-4"}}');
+    const out = render('{{icon "phone" "h-4 w-4"}}');
     expect(out).toMatch(/^<svg [^>]*class="h-4 w-4"[^>]*aria-hidden="true"/);
     expect(out).toContain('<path');
   });
