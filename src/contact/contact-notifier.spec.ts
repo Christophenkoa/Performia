@@ -25,4 +25,21 @@ describe('LoggingContactNotifier', () => {
     expect(output).not.toContain('SECRET-SUBJECT');
     expect(output).not.toContain('SECRET-MESSAGE-BODY');
   });
+
+  it('cannot be tricked into forging log lines through a name with newlines', async () => {
+    const log = vi.spyOn(Logger.prototype, 'log').mockImplementation(() => undefined);
+
+    await new LoggingContactNotifier().notify({
+      name: 'Eve\nLOG FORGED line',
+      email: 'eve@example.com',
+      phone: '+237 600 000 000',
+      subject: 'subject',
+      message: 'message body',
+      lang: 'fr',
+      receivedAt: new Date('2026-10-04T10:00:00Z'),
+    });
+
+    const output = log.mock.calls.map((call) => String(call[0])).join('\n');
+    expect(output).not.toMatch(/[\r\n]/);
+  });
 });

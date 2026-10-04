@@ -4,10 +4,17 @@ import type { ContactField } from '../content/content.types.js';
 
 const trim = ({ value }: { value: unknown }) => (typeof value === 'string' ? value.trim() : value);
 
+// Control characters would let a visitor forge log lines or inject headers in a future email notifier.
+const NO_CONTROL_CHARS = /^[^\p{Cc}]+$/u;
+// Same, but a message may contain line breaks and tabs.
+const MESSAGE_CHARS = /^[^\p{Cc}]*(?:[\r\n\t][^\p{Cc}]*)*$/u;
+const PHONE = /^(?=(?:\D*\d){6})[0-9+(). -]{8,30}$/;
+
 export class ContactDto {
   @Transform(trim)
   @IsString()
   @Length(2, 100)
+  @Matches(NO_CONTROL_CHARS)
   name: string;
 
   @Transform(trim)
@@ -17,17 +24,19 @@ export class ContactDto {
 
   @Transform(trim)
   @IsString()
-  @Matches(/^[0-9+()\s.-]{8,30}$/)
+  @Matches(PHONE)
   phone: string;
 
   @Transform(trim)
   @IsString()
   @Length(3, 150)
+  @Matches(NO_CONTROL_CHARS)
   subject: string;
 
   @Transform(trim)
   @IsString()
   @Length(10, 2000)
+  @Matches(MESSAGE_CHARS)
   message: string;
 }
 

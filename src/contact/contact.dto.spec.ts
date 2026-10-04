@@ -28,6 +28,37 @@ describe('validateContact', () => {
     expect(result).toEqual({ ok: false, fields: [field] });
   });
 
+  it.each([
+    ['name', { name: 'Awa\nNkoa' }],
+    ['subject', { subject: 'Hello\r\nBcc: x@example.com' }],
+    ['phone', { phone: '+237\t651544974' }],
+    ['phone', { phone: '........' }],
+    ['phone', { phone: '+(12) 345-' }],
+    ['message', { message: 'Bonjour\u0000 je souhaite un rendez-vous' }],
+    ['email', { email: `${'a'.repeat(250)}@example.com` }],
+    ['subject', { subject: 'S'.repeat(151) }],
+  ])('rejects control characters and out-of-range values in %s', async (field, override) => {
+    const result = await validateContact({ ...valid, ...override });
+    expect(result).toEqual({ ok: false, fields: [field] });
+  });
+
+  it('accepts line breaks in the message', async () => {
+    const message = 'Bonjour,\r\nje souhaite\tinscrire ma fille.\nMerci';
+    expect(await validateContact({ ...valid, message })).toEqual({ ok: true, value: { ...valid, message } });
+  });
+
+  it.each([
+    ['phone', { phone: '1234567 8' }],
+    ['phone', { phone: `+${'1'.repeat(29)}` }],
+    ['message', { message: 'x'.repeat(10) }],
+    ['message', { message: 'x'.repeat(2000) }],
+    ['subject', { subject: 'S'.repeat(150) }],
+    ['name', { name: 'Aw' }],
+  ])('accepts the boundary value of %s', async (_field, override) => {
+    const result = await validateContact({ ...valid, ...override });
+    expect(result.ok).toBe(true);
+  });
+
   it('reports every missing field in form order', async () => {
     const result = await validateContact({});
     expect(result).toEqual({ ok: false, fields: ['name', 'email', 'phone', 'subject', 'message'] });

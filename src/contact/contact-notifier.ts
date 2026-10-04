@@ -19,7 +19,7 @@ export class LoggingContactNotifier extends ContactNotifier {
   notify(request: ContactRequest): Promise<void> {
     // Phone, subject and message are deliberately not logged (GDPR data minimisation).
     this.logger.log(
-      `New contact request from ${request.name} <${request.email}> lang=${request.lang} at=${request.receivedAt.toISOString()}`,
+      `New contact request from ${JSON.stringify(request.name)} <${JSON.stringify(request.email)}> lang=${request.lang} at=${request.receivedAt.toISOString()}`,
     );
     return Promise.resolve();
   }
