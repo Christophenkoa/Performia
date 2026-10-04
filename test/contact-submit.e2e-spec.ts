@@ -45,8 +45,8 @@ describe('Contact submission (e2e)', () => {
 
   it('accepts a valid English request and redirects to the English page', async () => {
     const agent = request.agent(app.getHttpServer());
-    const token = await openForm(agent, '/en/contact');
-    await agent.post('/en/contact').type('form').send({ ...valid, _csrf: token }).expect(303).expect('Location', '/en/contact?sent=1');
+    const token = await openForm(agent, '/contact?lang=en');
+    await agent.post('/contact?lang=en').type('form').send({ ...valid, _csrf: token }).expect(303).expect('Location', '/contact?lang=en&sent=1');
     expect(notify).toHaveBeenCalledWith(expect.objectContaining({ lang: 'en' }));
   });
 
@@ -65,8 +65,8 @@ describe('Contact submission (e2e)', () => {
 
   it('localizes errors on the English form', async () => {
     const agent = request.agent(app.getHttpServer());
-    const token = await openForm(agent, '/en/contact');
-    const res = await agent.post('/en/contact').type('form').send({ ...valid, message: 'short', _csrf: token }).expect(400);
+    const token = await openForm(agent, '/contact?lang=en');
+    const res = await agent.post('/contact?lang=en').type('form').send({ ...valid, message: 'short', _csrf: token }).expect(400);
     expect(res.text).toContain(escapeHtml(en.contact.errors.message));
   });
 

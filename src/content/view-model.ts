@@ -3,10 +3,18 @@ import type { Lang, SiteContent } from './content.types.js';
 
 export type PageId = 'home' | 'contact';
 
-export function pathFor(lang: Lang, page: PageId): string {
-  const prefix = lang === 'en' ? '/en' : '';
-  if (page === 'home') return prefix || '/';
-  return `${prefix}/contact`;
+// One rule for the whole site: only the exact value "en" selects English.
+export function parseLang(value: unknown): Lang {
+  return value === 'en' ? 'en' : 'fr';
+}
+
+export function pathFor(lang: Lang, page: PageId, query: Record<string, string> = {}): string {
+  const base = page === 'home' ? '/' : '/contact';
+  const params = new URLSearchParams();
+  if (lang === 'en') params.set('lang', 'en');
+  for (const [key, value] of Object.entries(query)) params.set(key, value);
+  const search = params.toString();
+  return search ? `${base}?${search}` : base;
 }
 
 export function buildViewModel(t: SiteContent, lang: Lang, page: PageId, extra: Record<string, unknown> = {}) {

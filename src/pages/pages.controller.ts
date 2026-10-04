@@ -1,8 +1,8 @@
-import { Controller, Get, Query, Render, Req } from '@nestjs/common';
+import { Controller, Get, Query, Redirect, Render, Req } from '@nestjs/common';
 import type { Request } from 'express';
 import { ContentService } from '../content/content.service.js';
 import type { Lang } from '../content/content.types.js';
-import { buildViewModel } from '../content/view-model.js';
+import { buildViewModel, parseLang } from '../content/view-model.js';
 
 @Controller()
 export class PagesController {
@@ -10,27 +10,24 @@ export class PagesController {
 
   @Get()
   @Render('home')
-  homeFr() {
-    return this.home('fr');
-  }
-
-  @Get('en')
-  @Render('home')
-  homeEn() {
-    return this.home('en');
+  homePage(@Query('lang') lang: unknown) {
+    return this.home(parseLang(lang));
   }
 
   @Get('contact')
   @Render('contact')
-  contactFr(@Req() req: Request, @Query('sent') sent?: string) {
-    return this.contact('fr', req, sent);
+  contactPage(@Req() req: Request, @Query('lang') lang: unknown, @Query('sent') sent?: string) {
+    return this.contact(parseLang(lang), req, sent);
   }
 
+  // Old English URLs, kept working for links shared before the switch to ?lang=en.
+  @Get('en')
+  @Redirect('/?lang=en', 301)
+  legacyEnglishHome() {}
+
   @Get('en/contact')
-  @Render('contact')
-  contactEn(@Req() req: Request, @Query('sent') sent?: string) {
-    return this.contact('en', req, sent);
-  }
+  @Redirect('/contact?lang=en', 301)
+  legacyEnglishContact() {}
 
   private home(lang: Lang) {
     return buildViewModel(this.content.get(lang), lang, 'home');

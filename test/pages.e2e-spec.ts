@@ -32,21 +32,43 @@ describe('Pages (e2e)', () => {
     expect(res.text).toContain('<html lang="fr">');
     expect(res.text).toContain(`<title>${escapeHtml(fr.meta.homeTitle)}</title>`);
     expect(res.text).toContain(escapeHtml(fr.hero.headline));
-    expect(res.text).toContain('href="/en"');
+    expect(res.text).toContain(`href="${escapeHtml('/?lang=en')}"`);
   });
 
-  it('renders the English home page at /en', async () => {
-    const res = await request(app.getHttpServer()).get('/en').expect(200);
+  it('renders the English home page at /?lang=en', async () => {
+    const res = await request(app.getHttpServer()).get('/?lang=en').expect(200);
     expect(res.text).toContain('<html lang="en">');
     expect(res.text).toContain(escapeHtml(en.hero.headline));
     expect(res.text).toContain(escapeHtml(en.footer.tagline));
+  });
+
+  it('redirects the old /en URLs permanently', async () => {
+    const server = app.getHttpServer();
+    await request(server).get('/en').expect(301).expect('Location', '/?lang=en');
+    await request(server).get('/en/contact').expect(301).expect('Location', '/contact?lang=en');
+  });
+
+  it('falls back to French for unknown lang values', async () => {
+    for (const path of ['/?lang=de', '/?lang=EN', '/?lang=en&lang=fr']) {
+      const res = await request(app.getHttpServer()).get(path).expect(200);
+      expect(res.text).toContain('<html lang="fr">');
+    }
+  });
+
+  it('keeps the language in every internal link on English pages', async () => {
+    const res = await request(app.getHttpServer()).get('/?lang=en').expect(200);
+    expect(res.text).toContain(`<link rel="canonical" href="${escapeHtml('https://helloperformia.com/?lang=en')}" />`);
+    expect(res.text).toContain(`href="${escapeHtml('/contact?lang=en')}"`);
+    expect(res.text).toContain(`href="${escapeHtml('/?lang=en#matieres')}"`);
+    expect(res.text).toContain('href="/"');
+    expect(res.text).not.toMatch(/href="\/en/);
   });
 
   it('declares both language versions with absolute hreflang links', async () => {
     const res = await request(app.getHttpServer()).get('/').expect(200);
     expect(res.text).toContain('<link rel="canonical" href="https://helloperformia.com/" />');
     expect(res.text).toContain('<link rel="alternate" hreflang="fr" href="https://helloperformia.com/" />');
-    expect(res.text).toContain('<link rel="alternate" hreflang="en" href="https://helloperformia.com/en" />');
+    expect(res.text).toContain(`<link rel="alternate" hreflang="en" href="${escapeHtml('https://helloperformia.com/?lang=en')}" />`);
   });
 
   it('shows the confirmed contact details in the footer', async () => {
@@ -83,7 +105,7 @@ describe('Pages (e2e)', () => {
 
   it.each([
     ['/', fr],
-    ['/en', en],
+    ['/?lang=en', en],
   ])('renders every home section in order at %s', async (path, t) => {
     const res = await request(app.getHttpServer()).get(path).expect(200);
     const body = res.text.slice(res.text.indexOf('<main'));
@@ -94,7 +116,7 @@ describe('Pages (e2e)', () => {
 
   it.each([
     ['/', fr],
-    ['/en', en],
+    ['/?lang=en', en],
   ])('renders section details at %s', async (path, t) => {
     const res = await request(app.getHttpServer()).get(path).expect(200);
     for (const item of t.strip) expect(res.text).toContain(`>${escapeHtml(item)}<`);
@@ -123,7 +145,7 @@ describe('Pages (e2e)', () => {
     expect(frRes.text).toMatch(/<title>[^<]*Performia[^<]*<\/title>/);
     expect(frRes.text).toContain('<meta name="robots" content="noindex" />');
     expect(frRes.text).not.toContain('rel="canonical"');
-    const enRes = await request(app.getHttpServer()).get('/en/does-not-exist').expect(404);
+    const enRes = await request(app.getHttpServer()).get('/does-not-exist?lang=en').expect(404);
     expect(enRes.text).toContain(escapeHtml(en.errorPage.notFound.title));
     expect(enRes.text).toContain('<html lang="en">');
   });
@@ -143,7 +165,7 @@ describe('Pages (e2e)', () => {
     expect(home.text).toContain('>Performia<');
     expect(home.text).toContain(escapeHtml(fr.footer.copyright));
     expect(home.text).toContain(escapeHtml(fr.nav.cta));
-    for (const path of ['/', '/en', '/contact', '/en/contact', '/does-not-exist']) {
+    for (const path of ['/', '/?lang=en', '/contact', '/contact?lang=en', '/does-not-exist']) {
       const res = await request(server).get(path);
       expect(res.text).not.toContain('Academic Excellence');
     }

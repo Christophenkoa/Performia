@@ -1,16 +1,35 @@
 import { en } from './en.js';
 import { fr } from './fr.js';
 import type { Lang } from './content.types.js';
-import { buildViewModel, pathFor, type PageId } from './view-model.js';
+import { buildViewModel, parseLang, pathFor, type PageId } from './view-model.js';
+
+describe('parseLang', () => {
+  it.each([
+    ['en', 'en'],
+    [undefined, 'fr'],
+    ['fr', 'fr'],
+    ['EN', 'fr'],
+    ['de', 'fr'],
+    [['en', 'fr'], 'fr'],
+    ['', 'fr'],
+  ])('%j -> %s', (value, expected) => {
+    expect(parseLang(value)).toBe(expected);
+  });
+});
 
 describe('pathFor', () => {
   it.each([
     ['fr', 'home', '/'],
-    ['en', 'home', '/en'],
+    ['en', 'home', '/?lang=en'],
     ['fr', 'contact', '/contact'],
-    ['en', 'contact', '/en/contact'],
+    ['en', 'contact', '/contact?lang=en'],
   ])('%s %s -> %s', (lang, page, expected) => {
     expect(pathFor(lang as Lang, page as PageId)).toBe(expected);
+  });
+
+  it('appends extra parameters after lang', () => {
+    expect(pathFor('fr', 'contact', { sent: '1' })).toBe('/contact?sent=1');
+    expect(pathFor('en', 'contact', { sent: '1' })).toBe('/contact?lang=en&sent=1');
   });
 });
 
@@ -22,8 +41,8 @@ describe('buildViewModel', () => {
       t: fr,
       siteUrl: 'https://helloperformia.com',
       currentPath: '/contact',
-      alternates: { fr: '/contact', en: '/en/contact' },
-      switchPath: '/en/contact',
+      alternates: { fr: '/contact', en: '/contact?lang=en' },
+      switchPath: '/contact?lang=en',
       links: { home: '/', contact: '/contact' },
       pageTitle: fr.meta.contactTitle,
       pageDescription: fr.meta.contactDescription,
@@ -37,9 +56,9 @@ describe('buildViewModel', () => {
   it('uses English home metadata and switches back to French', () => {
     const vm = buildViewModel(en, 'en', 'home');
     expect(vm).toMatchObject({
-      currentPath: '/en',
+      currentPath: '/?lang=en',
       switchPath: '/',
-      links: { home: '/en', contact: '/en/contact' },
+      links: { home: '/?lang=en', contact: '/contact?lang=en' },
       pageTitle: en.meta.homeTitle,
       isHome: true,
     });

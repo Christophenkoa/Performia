@@ -36,10 +36,10 @@ describe('Contact page (e2e)', () => {
     expect(cookies.some((c) => c.startsWith('pf_csrf=') && /HttpOnly/i.test(c))).toBe(true);
   });
 
-  it('renders the English form posting to /en/contact', async () => {
-    const res = await request(app.getHttpServer()).get('/en/contact').expect(200);
+  it('renders the English form posting to /contact?lang=en', async () => {
+    const res = await request(app.getHttpServer()).get('/contact?lang=en').expect(200);
     expect(res.text).toContain('<html lang="en">');
-    expect(res.text).toContain('<form method="post" action="/en/contact"');
+    expect(res.text).toContain(`<form method="post" action="${escapeHtml('/contact?lang=en')}"`);
     expect(res.text).toContain(escapeHtml(en.contact.form.submit));
     expect(res.text).toContain('href="/contact"');
   });
@@ -52,7 +52,7 @@ describe('Contact page (e2e)', () => {
   it('rejects a POST without a CSRF token with a localized 403 page', async () => {
     const resFr = await request(app.getHttpServer()).post('/contact').type('form').send({ name: 'x' }).expect(403);
     expect(resFr.text).toContain(escapeHtml(fr.errorPage.title));
-    const resEn = await request(app.getHttpServer()).post('/en/contact').type('form').send({ name: 'x' }).expect(403);
+    const resEn = await request(app.getHttpServer()).post('/contact?lang=en').type('form').send({ name: 'x' }).expect(403);
     expect(resEn.text).toContain(escapeHtml(en.errorPage.title));
     expect(resFr.text).toContain('<meta name="robots" content="noindex" />');
     expect(resFr.text).not.toContain('rel="canonical"');
@@ -62,7 +62,7 @@ describe('Contact page (e2e)', () => {
   it('is never cached, because it embeds a per-visitor CSRF token', async () => {
     const server = app.getHttpServer();
     await request(server).get('/contact').expect(200).expect('Cache-Control', 'no-store');
-    await request(server).get('/en/contact').expect(200).expect('Cache-Control', 'no-store');
+    await request(server).get('/contact?lang=en').expect(200).expect('Cache-Control', 'no-store');
   });
 
   it('uses the Performia layout on the contact page', async () => {

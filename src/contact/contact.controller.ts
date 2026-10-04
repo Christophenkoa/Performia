@@ -1,9 +1,9 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { ContentService } from '../content/content.service.js';
 import type { Lang } from '../content/content.types.js';
-import { buildViewModel, pathFor } from '../content/view-model.js';
+import { buildViewModel, parseLang, pathFor } from '../content/view-model.js';
 import { ContactNotifier } from './contact-notifier.js';
 import { isHoneypotFilled, pickContactValues, validateContact } from './contact.dto.js';
 
@@ -16,17 +16,17 @@ export class ContactController {
   ) {}
 
   @Post('contact')
-  submitFr(@Req() req: Request, @Res() res: Response, @Body() body?: Record<string, unknown>): Promise<void> {
-    return this.submit('fr', req, res, body ?? {});
-  }
-
-  @Post('en/contact')
-  submitEn(@Req() req: Request, @Res() res: Response, @Body() body?: Record<string, unknown>): Promise<void> {
-    return this.submit('en', req, res, body ?? {});
+  submitForm(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Query('lang') lang: unknown,
+    @Body() body?: Record<string, unknown>,
+  ): Promise<void> {
+    return this.submit(parseLang(lang), req, res, body ?? {});
   }
 
   private async submit(lang: Lang, req: Request, res: Response, body: Record<string, unknown>): Promise<void> {
-    const successUrl = `${pathFor(lang, 'contact')}?sent=1`;
+    const successUrl = pathFor(lang, 'contact', { sent: '1' });
 
     // Bots get the same answer as people, so they cannot learn that they were filtered.
     if (isHoneypotFilled(body)) {

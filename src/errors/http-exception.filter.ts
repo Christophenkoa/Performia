@@ -1,16 +1,12 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { getContent } from '../content/content.service.js';
-import type { Lang, SiteContent } from '../content/content.types.js';
-import { buildViewModel, pathFor } from '../content/view-model.js';
-
-export function langFromPath(path: string): Lang {
-  return path === '/en' || path.startsWith('/en/') || path.startsWith('/en?') ? 'en' : 'fr';
-}
+import type { SiteContent } from '../content/content.types.js';
+import { buildViewModel, parseLang, pathFor } from '../content/view-model.js';
 
 // Renders views/error.hbs. Error pages are never indexed and carry no canonical or hreflang links.
 export function renderErrorPage(req: Request, res: Response, status: number): void {
-  const lang = langFromPath(req.originalUrl);
+  const lang = parseLang(req.query.lang);
   const t = getContent(lang);
   const { title, message, toContact } = copyFor(t, status);
   const backHref = toContact ? pathFor(lang, 'contact') : pathFor(lang, 'home');

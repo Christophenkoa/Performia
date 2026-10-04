@@ -13,7 +13,7 @@ import { ROOT_DIR } from './paths.js';
 import { registerHelpers } from './views/hbs-helpers.js';
 
 // Cookies are only needed where the form lives; the rest of the site stays cookie-free.
-const CONTACT_ROUTES = ['/contact', '/en/contact'];
+const CONTACT_ROUTES = ['/contact'];
 
 export function configureApp(app: NestExpressApplication, config: AppConfig): void {
   if (config.trustProxy) app.set('trust proxy', 1);
