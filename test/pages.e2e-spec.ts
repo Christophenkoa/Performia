@@ -78,6 +78,7 @@ describe('Pages (e2e)', () => {
     await request(server).get('/fonts/dm-sans-latin-wght-normal.woff2').expect(200);
     await request(server).get('/img/hero.jpg').expect(200);
     await request(server).get('/img/favicon.svg').expect(200);
+    await request(server).get('/img/suku.png').expect(200).expect('Content-Type', /png/);
   });
 
   it.each([
@@ -85,7 +86,8 @@ describe('Pages (e2e)', () => {
     ['/en', en],
   ])('renders every home section in order at %s', async (path, t) => {
     const res = await request(app.getHttpServer()).get(path).expect(200);
-    const positions = sectionTitles(t).map((title) => res.text.indexOf(escapeHtml(title)));
+    const body = res.text.slice(res.text.indexOf('<main'));
+    const positions = sectionTitles(t).map((title) => body.indexOf(escapeHtml(title)));
     expect(positions.every((p) => p >= 0)).toBe(true);
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
   });
@@ -118,6 +120,7 @@ describe('Pages (e2e)', () => {
     const frRes = await request(app.getHttpServer()).get('/does-not-exist').expect(404);
     expect(frRes.headers['content-type']).toMatch(/html/);
     expect(frRes.text).toContain(escapeHtml(fr.errorPage.notFound.title));
+    expect(frRes.text).toMatch(/<title>[^<]*Performia[^<]*<\/title>/);
     expect(frRes.text).toContain('<meta name="robots" content="noindex" />');
     expect(frRes.text).not.toContain('rel="canonical"');
     const enRes = await request(app.getHttpServer()).get('/en/does-not-exist').expect(404);

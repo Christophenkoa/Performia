@@ -18,7 +18,7 @@ export function renderErrorPage(req: Request, res: Response, status: number): vo
   res.status(status).render(
     'error',
     buildViewModel(t, lang, toContact ? 'contact' : 'home', {
-      pageTitle: title,
+      pageTitle: `${title} - ${t.brand}`,
       errorTitle: title,
       message,
       backHref,
