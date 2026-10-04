@@ -71,13 +71,6 @@
   .pill {
     @apply inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold text-navy;
   }
-  /* Legacy home-page classes, removed in Task 2 together with the old partials. */
-  .section-title {
-    @apply mb-12 text-center text-3xl font-bold text-navy md:text-4xl;
-  }
-  .card {
-    @apply h-full rounded-3xl border border-line bg-white transition-shadow duration-200 hover:shadow-lg;
-  }
   .btn {
     @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 text-base font-semibold transition-colors duration-200 active:scale-[0.98];
   }

@@ -1,22 +1,18 @@
-<section class="bg-white py-20">
-  <div class="container-page">
-    <h2 class="section-title">{{t.howItWorks.title}}</h2>
-    <ol class="mx-auto max-w-3xl space-y-8">
+<section class="bg-navy-deep text-white">
+  <div class="container-page flex flex-col gap-12 py-24">
+    <div class="flex max-w-2xl flex-col gap-3.5">
+      <p class="eyebrow">{{t.howItWorks.eyebrow}}</p>
+      <h2 class="h-section">{{t.howItWorks.title}}</h2>
+    </div>
+    <ol class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {{#each t.howItWorks.steps}}
-        <li class="flex gap-6">
-          <div class="shrink-0 text-6xl font-bold text-gold/20" aria-hidden="true">{{inc @index}}</div>
-          <div class="flex-1 pt-2">
-            <h3 class="mb-2 text-xl font-semibold text-navy">{{title}}</h3>
-            <p class="leading-relaxed text-navy/70">{{description}}</p>
-          </div>
+        <li class="flex flex-col gap-2.5 border-t-2 border-gold pt-5">
+          <span class="font-display text-sm font-bold text-gold" aria-hidden="true">0{{inc @index}}</span>
+          <h3 class="text-xl font-semibold">{{title}}</h3>
+          <p class="leading-relaxed text-on-navy">{{description}}</p>
         </li>
       {{/each}}
     </ol>
-    <div class="mt-12 text-center">
-      <div class="inline-flex items-center gap-2 rounded-xl bg-gold/10 px-6 py-3">
-        {{icon "circleCheck" "h-5 w-5 text-gold"}}
-        <span class="font-medium text-navy">{{t.howItWorks.reassurance}}</span>
-      </div>
-    </div>
+    <p class="text-white/90">{{t.howItWorks.reassurance}}</p>
   </div>
 </section>

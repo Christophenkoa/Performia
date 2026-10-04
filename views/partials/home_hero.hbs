@@ -1,20 +1,19 @@
-<section class="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[url(/img/hero.jpg)] bg-cover bg-center">
-  <div class="absolute inset-0 bg-linear-to-br from-navy/95 via-navy/90 to-navy/85"></div>
-  <div class="relative z-10 mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-    <div class="mb-6 flex justify-center">
-      <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
-        {{icon "monitor" "h-4 w-4 text-gold"}}{{t.hero.formatBadge}}
-      </span>
-    </div>
-    <h1 class="mb-6 text-4xl leading-tight font-bold text-balance text-white md:text-5xl lg:text-6xl">{{t.hero.headline}}</h1>
-    <p class="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-white/90 md:text-xl">{{t.hero.subheadline}}</p>
-    <div class="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
+<section class="container-page flex flex-col items-center gap-14 py-16 lg:flex-row lg:py-20">
+  <div class="flex min-w-0 flex-1 flex-col gap-6">
+    <span class="pill self-start bg-sand"><span class="h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>{{t.hero.formatBadge}}</span>
+    <h1 class="text-4xl leading-[1.08] font-bold tracking-tight text-balance md:text-5xl lg:text-6xl">{{t.hero.headline}}</h1>
+    <p class="max-w-xl text-lg leading-relaxed text-muted md:text-xl">{{t.hero.subheadline}}</p>
+    <div class="flex flex-wrap gap-3">
       <a href="{{links.contact}}" class="btn btn-gold">{{t.hero.ctaPrimary}}{{icon "arrowRight" "h-5 w-5"}}</a>
-      <a href="#approach" class="btn btn-outline-light">{{t.hero.ctaSecondary}}</a>
+      <a href="#approche" class="btn btn-outline">{{t.hero.ctaSecondary}}</a>
     </div>
-    <div class="flex items-center justify-center gap-2 text-white/80">
-      {{icon "circleCheck" "h-5 w-5 text-gold"}}
-      <span class="text-sm">{{t.hero.trustText}}</span>
+    <p class="flex items-center gap-2.5 text-muted">{{icon "circleCheck" "h-5 w-5 text-navy"}}{{t.hero.trustText}}</p>
+  </div>
+  <div class="relative w-full min-w-0 flex-1">
+    <img src="/img/hero.jpg" alt="{{t.hero.photoAlt}}" width="1920" height="1206" class="h-[360px] w-full rounded-[28px] object-cover md:h-[520px]" />
+    <div class="absolute bottom-6 left-4 flex max-w-[280px] items-center gap-3 rounded-2xl bg-white p-4 shadow-[0_18px_40px_rgba(19,41,75,0.16)] lg:-left-4">
+      <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy">{{icon "users" "h-5 w-5 text-gold"}}</span>
+      <span class="text-sm leading-snug font-medium">{{t.hero.photoCaption}}</span>
     </div>
   </div>
 </section>

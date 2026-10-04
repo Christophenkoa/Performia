@@ -1,0 +1,21 @@
+<section id="approche" class="container-page scroll-mt-20 py-24">
+  <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+    <h2 class="h-section max-w-xl">{{t.why.title}}</h2>
+    <p class="max-w-md text-lg leading-relaxed text-muted">{{t.why.intro}}</p>
+  </div>
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <article class="flex min-h-[360px] flex-col justify-between gap-8 rounded-3xl bg-navy p-9 text-white lg:row-span-2">
+      {{icon "users" "h-10 w-10 text-gold"}}
+      <div class="flex flex-col gap-3">
+        <h3 class="text-2xl leading-tight font-semibold">{{t.why.featured.title}}</h3>
+        <p class="leading-relaxed text-on-navy">{{t.why.featured.description}}</p>
+      </div>
+    </article>
+    {{#each t.why.cards}}
+      <article class="flex flex-col gap-2.5 rounded-3xl p-7 {{#if highlight}}bg-sand{{else}}border border-line bg-mist{{/if}}">
+        <h3 class="text-xl font-semibold">{{title}}</h3>
+        <p class="leading-relaxed text-muted">{{description}}</p>
+      </article>
+    {{/each}}
+  </div>
+</section>

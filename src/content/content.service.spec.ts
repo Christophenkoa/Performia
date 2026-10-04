@@ -37,14 +37,8 @@ describe('ContentService', () => {
     expect(strings(en).filter((s) => s.trim() === '')).toEqual([]);
   });
 
-  it('uses the same icons in both languages', () => {
-    const icons = (t: typeof fr) => [
-      ...t.trustBlock.points,
-      ...t.solution.blocks,
-      ...t.difference.blocks,
-      ...t.subjects.cards,
-      ...t.partnership.benefits,
-    ].map((item) => item.icon);
-    expect(icons(en)).toEqual(icons(fr));
+  it('uses the same subject symbols and card highlights in both languages', () => {
+    expect(en.subjects.cards.map((c) => c.symbol)).toEqual(fr.subjects.cards.map((c) => c.symbol));
+    expect(en.why.cards.map((c) => c.highlight)).toEqual(fr.why.cards.map((c) => c.highlight));
   });
 });

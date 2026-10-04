@@ -18,15 +18,11 @@ describe('Pages (e2e)', () => {
 
   const sectionTitles = (t: SiteContent) => [
     t.hero.headline,
-    t.trustBlock.title,
-    t.problem.title,
-    t.solution.title,
+    t.why.title,
     t.howItWorks.title,
-    t.difference.title,
     t.subjects.title,
-    t.targetAudience.title,
-    t.partnership.title,
     t.testimonials.title,
+    t.partnership.title,
     t.teacherRecruitment.title,
     t.finalCta.title,
   ];
@@ -94,15 +90,28 @@ describe('Pages (e2e)', () => {
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
   });
 
-  it('renders section details: steps, subjects, levels, testimonials, partner logo', async () => {
-    const res = await request(app.getHttpServer()).get('/').expect(200);
-    for (const step of fr.howItWorks.steps) expect(res.text).toContain(escapeHtml(step.title));
-    for (const card of fr.subjects.cards) expect(res.text).toContain(escapeHtml(card.title));
-    for (const level of fr.targetAudience.levels) expect(res.text).toContain(`>${escapeHtml(level)}<`);
-    for (const card of fr.testimonials.cards) expect(res.text).toContain(escapeHtml(card.name));
-    expect(res.text).toContain('id="approach"');
+  it.each([
+    ['/', fr],
+    ['/en', en],
+  ])('renders section details at %s', async (path, t) => {
+    const res = await request(app.getHttpServer()).get(path).expect(200);
+    for (const item of t.strip) expect(res.text).toContain(`>${escapeHtml(item)}<`);
+    for (const card of t.why.cards) expect(res.text).toContain(escapeHtml(card.title));
+    for (const step of t.howItWorks.steps) expect(res.text).toContain(escapeHtml(step.title));
+    for (const card of t.subjects.cards) expect(res.text).toContain(escapeHtml(card.title));
+    for (const card of t.testimonials.cards) expect(res.text).toContain(escapeHtml(card.name));
+    expect(res.text).toContain(escapeHtml(t.subjects.other.title));
+    for (const id of ['approche', 'matieres', 'avis']) expect(res.text).toContain(`id="${id}"`);
     expect(res.text).toContain('src="/img/suku.png"');
-    await request(app.getHttpServer()).get('/img/suku.png').expect(200).expect('Content-Type', /png/);
+  });
+
+  it('offers other subjects on demand with a link to the contact form', async () => {
+    const res = await request(app.getHttpServer()).get('/').expect(200);
+    const start = res.text.lastIndexOf(escapeHtml(fr.subjects.other.title));
+    const snippet = res.text.slice(start, start + 800);
+    expect(snippet).toContain('href="/contact"');
+    expect(snippet).toContain(escapeHtml(fr.subjects.other.cta));
+    expect(res.text).toContain('href="/#matieres"');
   });
 
   it('renders a localized HTML 404 page that search engines skip', async () => {

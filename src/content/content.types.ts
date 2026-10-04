@@ -1,34 +1,28 @@
-import type { IconName } from './icons.js';
-
 export type Lang = 'fr' | 'en';
 
 export type ContactField = 'name' | 'email' | 'phone' | 'subject' | 'message';
 
-export interface IconCard {
-  icon: IconName;
+export interface TextCard {
   title: string;
   description: string;
 }
 
-export interface Step {
-  title: string;
-  description: string;
+export interface WhyCard extends TextCard {
+  highlight: boolean;
 }
 
-export interface SubjectCard extends IconCard {
+export interface SubjectCard {
+  symbol: string;
+  title: string;
+  description: string;
   levels: string[];
-}
-
-export interface Benefit {
-  icon: IconName;
-  text: string;
 }
 
 export interface Testimonial {
   name: string;
+  initials: string;
   role: string;
   content: string;
-  rating: number;
 }
 
 export interface ErrorCopy {
@@ -58,23 +52,21 @@ export interface SiteContent {
     ctaPrimary: string;
     ctaSecondary: string;
     trustText: string;
+    photoAlt: string;
+    photoCaption: string;
   };
-  trustBlock: { title: string; points: IconCard[] };
-  problem: { title: string; description: string; challenges: string[] };
-  solution: { title: string; blocks: IconCard[] };
-  howItWorks: { title: string; steps: Step[]; reassurance: string };
-  difference: { title: string; blocks: IconCard[] };
-  subjects: { title: string; subtitle: string; cards: SubjectCard[] };
-  targetAudience: { title: string; description: string; profiles: string[]; levels: string[] };
-  partnership: {
+  strip: string[];
+  why: { title: string; intro: string; featured: TextCard; cards: WhyCard[] };
+  howItWorks: { eyebrow: string; title: string; steps: TextCard[]; reassurance: string };
+  subjects: {
     title: string;
-    description: string;
-    benefits: Benefit[];
-    partnerName: string;
-    logoAlt: string;
+    intro: string;
+    cards: SubjectCard[];
+    other: { title: string; description: string; cta: string };
   };
   testimonials: { title: string; cards: Testimonial[] };
-  teacherRecruitment: { title: string; subtitle: string; description: string; requirements: string[]; cta: string };
+  partnership: { title: string; description: string; logoAlt: string };
+  teacherRecruitment: { title: string; description: string; cta: string };
   finalCta: { title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string };
   footer: { tagline: string; contact: string; whatsapp: string; followUs: string; partnership: string; copyright: string };
   contact: {

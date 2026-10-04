@@ -1,17 +1,16 @@
-<section class="bg-mist py-20">
-  <div class="container-page">
-    <h2 class="section-title">{{t.testimonials.title}}</h2>
-    <div class="gap-6 md:columns-2 lg:columns-3">
+<section id="avis" class="scroll-mt-20 bg-mist">
+  <div class="container-page flex flex-col gap-10 py-24">
+    <h2 class="h-section">{{t.testimonials.title}}</h2>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
       {{#each t.testimonials.cards}}
-        <figure class="mb-6 break-inside-avoid rounded-xl bg-white p-6 shadow-lg">
-          {{icon "quote" "mb-4 h-8 w-8 text-gold/30"}}
-          <blockquote class="mb-4 leading-relaxed text-navy/80 italic">{{content}}</blockquote>
-          <div class="mb-3 flex items-center gap-1" role="img" aria-label="{{rating}}/5">
-            {{#times rating}}{{icon "star" "h-4 w-4 fill-gold text-gold"}}{{/times}}
+        <figure class="flex flex-col justify-between gap-6 rounded-3xl bg-white p-8 shadow-sm">
+          <div class="flex flex-col gap-4">
+            {{icon "quote" "h-7 w-7 text-gold"}}
+            <blockquote class="text-[17px] leading-relaxed">{{content}}</blockquote>
           </div>
-          <figcaption>
-            <p class="font-semibold text-navy">{{name}}</p>
-            <p class="text-sm text-navy/60">{{role}}</p>
+          <figcaption class="flex items-center gap-3">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-navy font-semibold text-white" aria-hidden="true">{{initials}}</span>
+            <span class="flex flex-col"><strong class="text-[15px]">{{name}}</strong><span class="text-sm text-muted">{{role}}</span></span>
           </figcaption>
         </figure>
       {{/each}}

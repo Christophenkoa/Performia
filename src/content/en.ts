@@ -13,171 +13,87 @@ export const en: SiteContent = {
   },
   nav: { ariaLabel: 'Main navigation', home: 'Home', approach: 'Our approach', subjects: 'Subjects', reviews: 'Parent reviews', contact: 'Contact', cta: 'Enroll my child', menu: 'Menu', switchLabel: 'FR', switchLang: 'fr' },
   hero: {
-    formatBadge: 'In-person or online classes according to your preferences',
-    headline: 'Give your child the best teachers to succeed in secondary school',
-    subheadline: "Personalized, quality academic support to guarantee your child's academic excellence",
+    formatBadge: 'Tutoring · in person or online',
+    headline: 'Qualified tutors to succeed in secondary school',
+    subheadline:
+      'Alongside school, personalized support in mathematics, physics, chemistry and other subjects on request, from Grade 6 to Grade 12.',
     ctaPrimary: 'Enroll my child',
     ctaSecondary: 'Discover the program',
     trustText: 'Join many families who trust us',
+    photoAlt: 'Teacher in front of a map of Africa in a classroom',
+    photoCaption: "One or more teachers chosen for your child's needs",
   },
-  trustBlock: {
-    title: 'Why choose us?',
-    points: [
+  strip: ['Mathematics', 'Physics', 'Chemistry', 'Other subjects on request', 'Grade 6 to Grade 12', 'BEPC and Baccalaureate'],
+  why: {
+    title: 'Why families choose us',
+    intro:
+      'Secondary school is demanding. We give every student the support they need, at the right pace, alongside their classes at school.',
+    featured: {
+      title: 'An adapted teaching team',
+      description: "We assign one or more teachers based on the student's learning needs for the best possible support.",
+    },
+    cards: [
       {
-        icon: 'users',
-        title: 'Adapted Teaching Team',
-        description: "We assign one or more teachers based on the student's educational needs to ensure optimal learning.",
+        title: 'Personalized follow-up',
+        description: 'Every student gets a learning plan adapted to their needs and goals.',
+        highlight: false,
       },
       {
-        icon: 'target',
-        title: 'Personalized support',
-        description: 'Each student receives support tailored to their specific needs.',
+        title: 'Tracked results',
+        description: 'Regular reports to measure progress and adjust the support.',
+        highlight: true,
       },
       {
-        icon: 'trendingUp',
-        title: 'Proven results',
-        description: '92% of our students improve their grades in less than 3 months.', // TODO: verify figure and source
+        title: 'Flexible formats',
+        description: "In-person or online classes, adapted to your child's schedule.",
+        highlight: false,
       },
       {
-        icon: 'monitor',
-        title: 'Flexible Formats',
-        description: "In-person or online classes, adapted to your child's schedule and your preferences.",
-      },
-    ],
-  },
-  problem: {
-    title: 'Secondary school challenges',
-    description:
-      'The transition to secondary school represents a crucial turning point in education. Programs become more demanding, subjects become more complex, and students face new learning methods. Without proper support, many students lose confidence and see their results decline.',
-    challenges: [
-      'Increasingly demanding curriculum',
-      'Overcrowded classes limiting individual attention',
-      'Difficulty understanding key subjects',
-      'Lack of effective learning methods',
-    ],
-  },
-  solution: {
-    title: 'Our teaching approach',
-    blocks: [
-      {
-        icon: 'clipboardList',
-        title: 'Personalized assessment',
-        description: "We evaluate each student's level to identify their strengths and areas for improvement.",
-      },
-      {
-        icon: 'lightbulb',
-        title: 'Customized learning plan',
-        description: "A program tailored to your child's specific needs and goals.",
-      },
-      {
-        icon: 'users',
-        title: 'Targeted Support',
-        description:
-          "The involvement of one or more teachers, carefully selected according to the student's needs, enables efficient and tailored progress.",
-      },
-      {
-        icon: 'chartLine',
-        title: 'Regular monitoring',
-        description: 'Detailed reports to track progress and adjust support continuously.',
+        title: 'Verified teachers',
+        description: 'All our teachers go through a rigorous selection and are regularly evaluated.',
+        highlight: false,
       },
     ],
   },
   howItWorks: {
-    title: 'How does it work?',
+    eyebrow: 'How it works',
+    title: 'Four steps to tailored support',
     steps: [
-      {
-        title: 'Registration and format choice',
-        description: 'Enroll your child, choose your preferred format (in-person or online), and we assess their level.',
-      },
-      {
-        title: 'Teacher Assignment',
-        description: "After assessment, we assign one or more qualified teachers matching exactly your child's identified needs.",
-      },
-      {
-        title: 'Classes begin',
-        description: 'Classes start according to the agreed schedule, in the format you selected.',
-      },
-      {
-        title: 'Monitoring and adjustment',
-        description: 'We track progress and adjust the program to ensure the best results.',
-      },
+      { title: 'Registration and assessment', description: "You choose the format, we assess your child's level." },
+      { title: 'Choice of teachers', description: 'One or more qualified teachers, based on the identified needs.' },
+      { title: 'Classes begin', description: 'On the agreed schedule, in person or online.' },
+      { title: 'Follow-up and adjustment', description: 'Regular reports and a continuously adjusted program.' },
     ],
-    reassurance: 'You can start at any time during the school year',
-  },
-  difference: {
-    title: 'What sets us apart',
-    blocks: [
-      {
-        icon: 'shieldCheck',
-        title: 'Verified teachers',
-        description: 'All our teachers go through a rigorous selection process and are regularly evaluated.',
-      },
-      {
-        icon: 'userCheck',
-        title: 'Tailored Assignment',
-        description:
-          'The choice and number of teachers are determined by the specific needs of the student, ensuring perfectly adapted educational support.',
-      },
-      {
-        icon: 'monitor',
-        title: 'Proven digital tools',
-        description: 'We rely on established online platforms for learning resources and progress tracking.',
-      },
-      {
-        icon: 'award',
-        title: 'Satisfaction guarantee',
-        description: "If you're not satisfied after the first month, we offer a full refund.", // TODO: verify refund terms
-      },
-    ],
+    reassurance: 'You can start at any time during the school year.',
   },
   subjects: {
     title: 'Subjects taught',
-    subtitle: 'Comprehensive support in key scientific subjects',
+    intro: 'Our core subjects are the sciences. Other subjects are available on request.',
     cards: [
       {
-        icon: 'calculator',
+        symbol: 'π',
         title: 'Mathematics',
-        description: 'Algebra, geometry, trigonometry, and analysis. Strengthening foundations and exam preparation.',
+        description: 'Algebra, geometry, trigonometry and analysis. Strengthening foundations and exam preparation.',
         levels: ['Grade 6 to 9', 'Grade 10 to 12'],
       },
       {
-        icon: 'atom',
+        symbol: 'F=ma',
         title: 'Physics',
-        description: 'Mechanics, electricity, optics, and thermodynamics. Theoretical courses and practical exercises.',
+        description: 'Mechanics, electricity, optics and thermodynamics. Theory and practical exercises.',
         levels: ['Grade 8 to 12'],
       },
       {
-        icon: 'flask',
+        symbol: 'H₂O',
         title: 'Chemistry',
         description: 'General, organic and inorganic chemistry. Experiments and practical applications.',
         levels: ['Grade 8 to 12'],
       },
     ],
-  },
-  targetAudience: {
-    title: 'Who is our program for?',
-    description:
-      'Our academic excellence platform covers the entire secondary school curriculum. From Grade 6 to Grade 12, we support each student with a teaching approach adapted to their level, to consolidate their foundations, pass their exams, and calmly prepare for higher education.',
-    profiles: [
-      'Students struggling with certain subjects',
-      'Students wanting to improve their grades',
-      'Students preparing for important exams',
-      'Students aiming for academic excellence',
-    ],
-    levels: ['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'],
-  },
-  partnership: {
-    title: 'Our partnership with Suku',
-    description:
-      'We are proud to collaborate with Suku, an innovative educational platform that shares our vision of academic excellence.',
-    benefits: [
-      { icon: 'bookOpen', text: 'Access to additional educational resources' },
-      { icon: 'sparkles', text: 'Cutting-edge technology platform' },
-      { icon: 'chartLine', text: 'Digital progress tracking' },
-      { icon: 'users', text: 'Expanded learning community' },
-    ],
-    partnerName: 'Partner: Suku',
-    logoAlt: 'Logo of Suku, partner of the platform',
+    other: {
+      title: 'Other subjects on request',
+      description: 'Does your child need help in another subject? Tell us which one and we will find the right teacher.',
+      cta: 'Make a request',
+    },
   },
   // TODO: verify - testimonials must come from real parents who agreed to publication
   testimonials: {
@@ -185,45 +101,41 @@ export const en: SiteContent = {
     cards: [
       {
         name: 'Sylvie Kamga',
-        role: 'Mother of Grade 10 student',
-        content:
-          'Thanks to the support received, my daughter regained confidence. Her math grades went from 11/20 to 16/20 in just two months. The teachers are patient and truly attentive.',
-        rating: 5,
+        initials: 'SK',
+        role: 'Mother of a Grade 10 student',
+        content: 'Thanks to the support she received, my daughter regained her confidence. The teachers are patient and truly attentive.',
       },
       {
         name: 'Achille Mboua',
-        role: 'Father of Grade 12 student',
-        content:
-          'My son was preparing for his baccalaureate and needed support in physics-chemistry. The assigned teacher identified his gaps and addressed them effectively. He scored 17/20 on his final exam.',
-        rating: 5,
+        initials: 'AM',
+        role: 'Father of a Grade 12 student',
+        content: "The assigned teacher identified my son's gaps in physics and chemistry and addressed them effectively before the baccalaureate.",
       },
       {
         name: 'Nkomo Tagne',
-        role: 'Mother of Grade 9 student',
-        content:
-          "The personalized follow-up makes all the difference. I regularly receive reports on my child's progress and can easily communicate with the teacher. A professional and effective service.",
-        rating: 5,
+        initials: 'NT',
+        role: 'Mother of a Grade 9 student',
+        content: 'The personalized follow-up makes all the difference. I receive regular reports and can easily talk with the teacher.',
       },
     ],
   },
+  partnership: {
+    title: 'Our partnership with Suku',
+    description:
+      'An educational platform that shares our vision: additional learning resources, digital progress tracking and a wider learning community.',
+    logoAlt: 'Logo of Suku, our partner',
+  },
   teacherRecruitment: {
     title: 'Are you a teacher?',
-    subtitle: 'Join our team of qualified teachers',
-    description: 'We are looking for passionate and competent teachers to guide our students to success.',
-    requirements: [
-      'University degree in the subject taught',
-      'Secondary school teaching experience',
-      'Excellent teaching skills',
-      'Patience and listening skills',
-      'Flexible availability',
-    ],
+    description:
+      'Join our team of qualified tutors. We are looking for teachers with a degree in their subject, secondary school experience, patience and good listening skills.',
     cta: 'Apply now',
   },
   finalCta: {
     title: 'Ready to give your child the best?',
-    subtitle: 'Enroll today and give your child the keys to academic success',
+    subtitle: 'Enroll today. We will get back to you quickly.',
     ctaPrimary: 'Enroll my child',
-    ctaSecondary: 'Contact us',
+    ctaSecondary: 'Write on WhatsApp',
   },
   footer: {
     tagline: 'Tutoring for secondary school students, alongside school.',
