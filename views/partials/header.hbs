@@ -19,11 +19,11 @@
         {{icon "menu" "h-5 w-5"}}
       </summary>
       <nav class="absolute top-14 right-0 flex w-64 flex-col gap-4 rounded-2xl border border-line bg-white p-5 shadow-xl" aria-label="{{t.nav.ariaLabel}}">
-        <a href="{{links.home}}" class="nav-link{{#if isHome}} nav-link-active{{/if}}">{{t.nav.home}}</a>
+        <a href="{{links.home}}" class="nav-link{{#if isHome}} nav-link-active{{/if}}"{{#if isHome}} aria-current="page"{{/if}}>{{t.nav.home}}</a>
         <a href="{{links.home}}#approche" class="nav-link">{{t.nav.approach}}</a>
         <a href="{{links.home}}#matieres" class="nav-link">{{t.nav.subjects}}</a>
         <a href="{{links.home}}#avis" class="nav-link">{{t.nav.reviews}}</a>
-        <a href="{{links.contact}}" class="nav-link{{#if isContact}} nav-link-active{{/if}}">{{t.nav.contact}}</a>
+        <a href="{{links.contact}}" class="nav-link{{#if isContact}} nav-link-active{{/if}}"{{#if isContact}} aria-current="page"{{/if}}>{{t.nav.contact}}</a>
         <a href="{{switchPath}}" hreflang="{{t.nav.switchLang}}" lang="{{t.nav.switchLang}}" class="lang-switch self-start">{{icon "globe" "h-4 w-4"}}{{t.nav.switchLabel}}</a>
         <a href="{{links.contact}}" class="btn btn-navy btn-sm">{{t.nav.cta}}</a>
       </nav>

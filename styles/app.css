@@ -111,7 +111,7 @@
     @apply flex items-start gap-4 rounded-2xl bg-mist p-5;
   }
   .field {
-    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-navy placeholder:text-muted focus:border-navy focus:ring-2 focus:ring-gold/60 focus:outline-none aria-invalid:border-red-600;
+    @apply w-full rounded-xl border border-muted/40 bg-white px-4 py-3 text-navy placeholder:text-muted focus:border-navy aria-invalid:border-red-600;
   }
   .field-label {
     @apply mb-2 block text-sm font-semibold text-navy;
