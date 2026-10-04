@@ -1,24 +1,23 @@
-<section class="bg-linear-to-br from-navy to-navy-dark py-20 text-white">
-  <div class="container-page text-center">
-    <h1 class="mb-4 text-4xl font-bold text-balance md:text-5xl">{{t.contact.title}}</h1>
-    <p class="mx-auto max-w-2xl text-lg text-white/90">{{t.contact.subtitle}}</p>
+<section class="bg-navy text-white">
+  <div class="container-page flex flex-col items-center gap-4 py-20 text-center">
+    <p class="eyebrow">{{t.brand}}</p>
+    <h1 class="text-4xl font-bold tracking-tight text-balance md:text-5xl">{{t.contact.title}}</h1>
+    <p class="max-w-2xl text-lg text-on-navy">{{t.contact.subtitle}}</p>
   </div>
 </section>
 
-<section class="py-20">
-  <div class="container-page grid grid-cols-1 gap-12 lg:grid-cols-2">
-    <div class="rounded-xl bg-white p-8 shadow-lg">
-      {{#if sent}}
-        <div class="mb-6 flex items-start gap-3 rounded-xl bg-gold/10 p-4 text-navy" role="status">
-          {{icon "circleCheck" "mt-0.5 h-5 w-5 shrink-0 text-gold"}}
-          <p>{{t.contact.success}}</p>
-        </div>
-      {{/if}}
-      {{#if hasErrors}}
-        <div class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert">{{t.contact.errorSummary}}</div>
-      {{/if}}
-      {{> contact_form}}
-    </div>
-    {{> contact_info}}
+<section class="container-page grid grid-cols-1 gap-10 py-20 lg:grid-cols-[1.1fr_1fr]">
+  <div class="rounded-3xl border border-line bg-white p-8 shadow-sm md:p-10">
+    {{#if sent}}
+      <div class="mb-6 flex items-start gap-3 rounded-2xl bg-sand p-4 text-navy" role="status">
+        {{icon "circleCheck" "mt-0.5 h-5 w-5 shrink-0 text-navy"}}
+        <p>{{t.contact.success}}</p>
+      </div>
+    {{/if}}
+    {{#if hasErrors}}
+      <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert">{{t.contact.errorSummary}}</div>
+    {{/if}}
+    {{> contact_form}}
   </div>
+  {{> contact_info}}
 </section>

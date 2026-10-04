@@ -159,4 +159,10 @@ describe('Pages (e2e)', () => {
     const manifest = await request(server).get('/site.webmanifest').expect(200);
     expect(JSON.parse(manifest.text)).toMatchObject({ name: 'Performia', theme_color: '#13294B' });
   });
+
+  it('shows the Envol mark on error pages', async () => {
+    const res = await request(app.getHttpServer()).get('/does-not-exist').expect(404);
+    const main = res.text.slice(res.text.indexOf('<main'));
+    expect(main).toContain('viewBox="0 0 64 64"');
+  });
 });

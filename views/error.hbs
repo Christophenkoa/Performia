@@ -1,8 +1,8 @@
 <section class="py-24">
-  <div class="mx-auto max-w-xl px-4 text-center">
-    {{icon "circleAlert" "mx-auto mb-6 h-12 w-12 text-gold"}}
-    <h1 class="mb-4 text-3xl font-bold text-navy">{{errorTitle}}</h1>
-    <p class="mb-8 text-navy/70">{{message}}</p>
+  <div class="mx-auto flex max-w-xl flex-col items-center px-6 text-center">
+    <div class="mb-6">{{> logo_mark size=56}}</div>
+    <h1 class="mb-4 text-3xl font-bold tracking-tight md:text-4xl">{{errorTitle}}</h1>
+    <p class="mb-8 text-lg text-muted">{{message}}</p>
     <a href="{{backHref}}" class="btn btn-navy">{{backLabel}}</a>
   </div>
 </section>

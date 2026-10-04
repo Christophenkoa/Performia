@@ -64,4 +64,10 @@ describe('Contact page (e2e)', () => {
     await request(server).get('/contact').expect(200).expect('Cache-Control', 'no-store');
     await request(server).get('/en/contact').expect(200).expect('Cache-Control', 'no-store');
   });
+
+  it('uses the Performia layout on the contact page', async () => {
+    const res = await request(app.getHttpServer()).get('/contact').expect(200);
+    expect(res.text).toContain('<p class="eyebrow">Performia</p>');
+    expect(res.text).toContain('class="rounded-3xl border border-line bg-white p-8 shadow-sm md:p-10"');
+  });
 });
