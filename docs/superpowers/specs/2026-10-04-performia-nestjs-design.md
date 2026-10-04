@@ -1,7 +1,7 @@
 # Performia on NestJS - Design
 
 Date: 2026-10-04
-Status: Approved in chat, pending spec review
+Status: Approved (rev. 2: contact details, form fields and stack confirmed by probe)
 
 ## Goal
 
@@ -25,16 +25,24 @@ Success criteria:
 
 ## Architecture
 
-Single NestJS app (TypeScript, Node 24, npm), Handlebars views via `@nestjs/platform-express` + `hbs`, Tailwind CSS compiled at build time.
+Single NestJS 12 app (ESM, TypeScript, Node 24, npm, Vitest as scaffolded by `@nestjs/cli` 12), Handlebars views via `@nestjs/platform-express` + `hbs`, Tailwind CSS 4 compiled at build time. Fonts (DM Sans, Playfair Display) are self-hosted, icons are inline Lucide SVGs, and the pages ship no client-side JavaScript (the mobile menu uses `<details>`).
 
 ```
 src/
-  main.ts                 bootstrap: helmet, views, static assets, cookie parser, CSRF
+  main.ts                 bootstrap (loads .env, config, configureApp, listen)
+  setup-app.ts            configureApp(): helmet, static, body parser, cookies, CSRF, views
+  config.ts               loadConfig(): typed, validated environment config
+  paths.ts                ROOT_DIR
+  security/csrf.ts        session id cookie + csrf-csrf middleware
+  views/hbs-helpers.ts    inc, eq, times, icon helpers
   app.module.ts
   content/
     content.module.ts
     content.service.ts    getContent(lang): SiteContent
     content.types.ts      SiteContent interface (single source of truth for shape)
+    contact-details.ts    phone, WhatsApp, email, social URLs (language-neutral)
+    icons.ts              Lucide SVG markup + renderIcon()
+    view-model.ts         pathFor(), buildViewModel()
     fr.ts                 French copy
     en.ts                 English copy
   pages/
@@ -46,14 +54,17 @@ src/
     contact.dto.ts        class-validator DTO
     contact-notifier.ts   ContactNotifier interface + LoggingContactNotifier
 views/
-  layouts/main.hbs
-  partials/               header, footer, one partial per home section
+  layout.hbs              default hbs layout
+  partials/               header, footer, home_<section>, contact_form, contact_info
+                          (hbs turns '-' into '_' in partial names, so files use '_')
   home.hbs
   contact.hbs
+  error.hbs               CSRF failure page
 public/
   css/app.css             Tailwind build output (gitignored)
-  img/                    logo, hero image (downloaded once, served locally)
-styles/tailwind.css       Tailwind input
+  fonts/                  DM Sans + Playfair Display (latin, variable woff2)
+  img/                    hero.jpg, suku.png (partner logo), favicon.svg
+styles/app.css            Tailwind input (theme tokens, components)
 test/                     e2e tests
 ```
 
@@ -67,7 +78,9 @@ test/                     e2e tests
 
 - French at `/` and `/contact`, English at `/en` and `/en/contact`.
 - Header switcher links to the equivalent page in the other language.
-- `<html lang>`, `<link rel="alternate" hreflang>` for both languages, per-language `<title>` and meta description.
+- `<html lang>`, absolute `<link rel="alternate" hreflang>` (fr, en, x-default) and canonical URLs on `https://helloperformia.com`, per-language `<title>` and meta description.
+- Call-to-action buttons link to the contact page (enroll, apply), the approach section, or WhatsApp. The original buttons had no targets.
+- The original footer links to `/privacy` and `/terms`, which do not exist; they are left out until those pages are written.
 
 ## Pages
 
@@ -87,22 +100,30 @@ Home sections, in the original order:
 12. Final CTA
 13. Footer (contact details, social links, WhatsApp)
 
-Contact page: heading, form (name, email, phone, message), contact information (address Abidjan, phone, email, WhatsApp).
+Contact page: heading, form (name, email, phone, subject, message, as on the live site), contact information (address, phone, WhatsApp, email, opening hours, social links). Labels that were hard-coded in French on the live site are localized.
+
+Contact details (confirmed by the client, used everywhere):
+
+- Phone and WhatsApp: `+237 651 544 974` (`tel:+237651544974`, `https://wa.me/237651544974`)
+- Email: `contact@helloperformia.com`
+- Address: "Yaoundé, Douala, Cameroun" (FR) / "Yaoundé, Douala, Cameroon" (EN)
+- Phone placeholder: `+237 6XX XX XX XX`
 
 Visual style follows the original Tailwind theme (colors and spacing taken from `index-CR_jwmoD.css`). Responsive down to 360 px width.
 
 ## Contact flow
 
-1. Browser submits `POST /contact` (or `/en/contact`) as a normal form post with a CSRF token.
-2. `ContactDto` validation (class-validator, whitelist + forbidNonWhitelisted):
+1. Browser submits `POST /contact` (or `/en/contact`) as a normal form post with a CSRF token. Session and CSRF cookies are only set on the contact routes; the home page sets no cookies.
+2. `ContactDto` validation (class-validator with `whitelist`, so `_csrf` and unknown fields are stripped):
    - `name`: string, 2-100 chars, trimmed
    - `email`: valid email, max 254 chars
-   - `phone`: optional, max 30 chars, digits, spaces, `+`, `-`, `()`
-   - `message`: string, 10-2000 chars
+   - `phone`: required, 8-30 chars, digits, spaces, `+`, `-`, `.`, `()`
+   - `subject`: string, 3-150 chars, trimmed
+   - `message`: string, 10-2000 chars, trimmed
    - `website`: honeypot, must be empty
 3. Honeypot filled: respond with the same success redirect but do not notify (silent drop).
 4. Validation errors: re-render the contact view with status 400, localized error messages and the submitted values.
-5. Valid: `ContactNotifier.notify(request)` (v1 logs a structured line without the message body to limit personal data in logs), then `303` redirect to `/contact?sent=1`, which shows a success notice.
+5. Valid: `ContactNotifier.notify(request)` (v1 logs name, email and language only; phone, subject and message are not logged, to limit personal data in logs), then `303` redirect to `/contact?sent=1`, which shows a success notice.
 6. Rate limit: `@nestjs/throttler`, 5 requests per minute per IP on the contact routes; excess returns 429.
 
 ## Security
@@ -111,8 +132,9 @@ Visual style follows the original Tailwind theme (colors and spacing taken from 
 - Handlebars auto-escaping for all content; no triple-stash on user input.
 - CSRF protection on the form (double-submit cookie via `csrf-csrf`).
 - Body size limit 10 kb for form posts.
-- Config via `@nestjs/config`; `.env.example` committed, `.env` gitignored. v1 needs only `PORT` and `CSRF_SECRET`.
-- GDPR: logs contain name and email only for the contact event; message text is not logged. A privacy notice line under the form states how the data is used.
+- Config via a small typed loader (`loadConfig`) instead of `@nestjs/config`; `.env` is read with Node's `process.loadEnvFile`. `.env.example` committed, `.env` gitignored. Variables: `PORT`, `NODE_ENV`, `CSRF_SECRET` (at least 32 chars, required in production), `TRUST_PROXY` (set `true` behind a reverse proxy so rate limiting sees client IPs).
+- Cookies: `pf_sid` (random session id for CSRF binding) and `pf_csrf` (`__Host-pf_csrf` in production), both `HttpOnly`, `SameSite=Lax`, `Secure` in production.
+- GDPR: logs contain name and email only for the contact event; phone, subject and message are not logged. A privacy notice line under the form states how the data is used. The two cookies are strictly necessary security cookies and are limited to the contact routes.
 
 ## Testing
 
@@ -127,6 +149,7 @@ Visual style follows the original Tailwind theme (colors and spacing taken from 
 
 ## Assumptions and open points
 
-1. Placeholder-looking data is copied unchanged and marked `// TODO: verify`: WhatsApp `+225 07 07 12 34 56`, generic Facebook/Instagram URLs, "847 familles", "92% de nos élèves améliorent leurs notes en moins de 3 mois", the three testimonials, and the refund guarantee. Public figures and testimonials need to be verified against a real source before launch.
+1. Placeholder-looking data is copied unchanged and marked `// TODO: verify`: generic Facebook/Instagram URLs, "847 familles", "92% de nos élèves améliorent leurs notes en moins de 3 mois", the three testimonials, and the refund guarantee. Public figures and testimonials need to be verified against a real source before launch.
 2. Hostinger Horizons runtime scripts (postMessage error relay, fetch interception, navigation guard) are dropped; they only serve the Horizons editor.
-3. The logo and hero image are downloaded once and committed. The Unsplash image license allows this; the logo is the client's own asset.
+3. The hero image (Unsplash) and the Suku partner logo are downloaded once and committed. The Unsplash license permits free use; permission to show the Suku logo is assumed from the existing site.
+4. The brand name shown on the live site is "Academic Excellence" / "Academic Excellence Platform", not "Performia". It is kept as is and lives in one content field (`brand`).
