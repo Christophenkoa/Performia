@@ -51,8 +51,9 @@
     display: none;
   }
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 3px solid var(--color-gold);
     outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-navy);
   }
 }
 
@@ -63,6 +64,7 @@
   .h-section {
     @apply text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-[44px] lg:leading-[1.1];
   }
+  /* Gold text: only on navy backgrounds (contrast). */
   .eyebrow {
     @apply text-sm font-semibold tracking-[0.08em] text-gold uppercase;
   }
@@ -116,7 +118,7 @@
     @apply flex items-start gap-4 rounded-2xl bg-mist p-5;
   }
   .field {
-    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-navy placeholder:text-muted/70 focus:border-navy focus:ring-2 focus:ring-gold/60 focus:outline-none aria-invalid:border-red-600;
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-navy placeholder:text-muted focus:border-navy focus:ring-2 focus:ring-gold/60 focus:outline-none aria-invalid:border-red-600;
   }
   .field-label {
     @apply mb-2 block text-sm font-semibold text-navy;
