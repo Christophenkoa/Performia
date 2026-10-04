@@ -123,8 +123,9 @@ export const fr: SiteContent = {
       },
       {
         icon: 'monitor',
-        title: 'Technologie éducative',
-        description: 'Plateforme en ligne moderne avec ressources pédagogiques et suivi en temps réel.',
+        title: 'Outils numériques éprouvés',
+        description:
+          'Nous nous appuyons sur des plateformes en ligne reconnues pour les ressources pédagogiques et le suivi des progrès.',
       },
       {
         icon: 'award',

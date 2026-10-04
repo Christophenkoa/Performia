@@ -120,8 +120,8 @@ export const en: SiteContent = {
       },
       {
         icon: 'monitor',
-        title: 'Educational technology',
-        description: 'Modern online platform with educational resources and real-time tracking.',
+        title: 'Proven digital tools',
+        description: 'We rely on established online platforms for learning resources and progress tracking.',
       },
       {
         icon: 'award',
