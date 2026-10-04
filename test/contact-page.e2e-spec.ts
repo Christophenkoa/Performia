@@ -36,6 +36,11 @@ describe('Contact page (e2e)', () => {
     expect(cookies.some((c) => c.startsWith('pf_csrf=') && /HttpOnly/i.test(c))).toBe(true);
   });
 
+  it('shows the English success message after an English submission redirect', async () => {
+    const res = await request(app.getHttpServer()).get('/contact?lang=en&sent=1').expect(200);
+    expect(res.text).toContain(escapeHtml(en.contact.success));
+  });
+
   it('renders the English form posting to /contact?lang=en', async () => {
     const res = await request(app.getHttpServer()).get('/contact?lang=en').expect(200);
     expect(res.text).toContain('<html lang="en">');
@@ -54,6 +59,7 @@ describe('Contact page (e2e)', () => {
     expect(resFr.text).toContain(escapeHtml(fr.errorPage.title));
     const resEn = await request(app.getHttpServer()).post('/contact?lang=en').type('form').send({ name: 'x' }).expect(403);
     expect(resEn.text).toContain(escapeHtml(en.errorPage.title));
+    expect(resEn.text).toContain(`href="${escapeHtml('/contact?lang=en')}"`);
     expect(resFr.text).toContain('<meta name="robots" content="noindex" />');
     expect(resFr.text).not.toContain('rel="canonical"');
     expect(resFr.text).not.toContain('rel="alternate"');

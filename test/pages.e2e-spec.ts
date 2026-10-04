@@ -148,6 +148,7 @@ describe('Pages (e2e)', () => {
     const enRes = await request(app.getHttpServer()).get('/does-not-exist?lang=en').expect(404);
     expect(enRes.text).toContain(escapeHtml(en.errorPage.notFound.title));
     expect(enRes.text).toContain('<html lang="en">');
+    expect(enRes.text).toContain(`href="${escapeHtml('/?lang=en')}"`);
   });
 
   it('keeps normal pages indexable', async () => {

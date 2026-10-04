@@ -39,3 +39,8 @@ One URL per page; the language is selected with `?lang=en`. French stays the def
 ## Testing
 
 Unit: `parseLang` cases; `pathFor` for both languages, with and without extra query. E2E: all `/en` usages move to `?lang=en`; new tests for the 301 redirects, unknown `lang` value rendering French, English links carrying `lang=en`, English form round trip (action, 400 re-render, 303 to `/contact?lang=en&sent=1`), English 404 and 403 pages. Existing security and contact tests keep passing.
+
+## Accepted trade-offs
+
+- Google's multilingual guidance prefers subdirectories (/en) over URL parameters; parameters still index correctly with self-referencing canonicals and reciprocal hreflang, which this design provides. Chosen for one URL per page; check indexing in Search Console after launch.
+- Rate limiting: FR and EN now share one POST handler, so the 5 requests per minute per IP limit is shared across both languages (previously 5 per language).

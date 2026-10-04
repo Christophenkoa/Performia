@@ -22,7 +22,7 @@ npm run watch:css
 npm run start:dev
 ```
 
-Open http://localhost:3000 (French) or http://localhost:3000/en (English).
+Open http://localhost:3000 (French) or http://localhost:3000/?lang=en (English).
 
 ## Tests
 
@@ -39,7 +39,7 @@ npm run build
 NODE_ENV=production CSRF_SECRET=... TRUST_PROXY=true npm run start:prod
 ```
 
-Serve over HTTPS (cookies are `Secure` in production). Set `TRUST_PROXY=true` behind a reverse proxy so rate limiting uses the client IP.
+Serve over HTTPS (cookies are `Secure` in production). Set `TRUST_PROXY=true` behind a reverse proxy so rate limiting uses the client IP. If a CDN or reverse proxy caches pages, keep the `lang` query parameter in the cache key; otherwise visitors may get the wrong language.
 
 ## Where things live
 
