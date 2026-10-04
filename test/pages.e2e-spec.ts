@@ -42,6 +42,18 @@ describe('Pages (e2e)', () => {
     expect(res.text).toContain(escapeHtml(en.footer.tagline));
   });
 
+  it.each([
+    ['/', fr],
+    ['/?lang=en', en],
+  ])('links to the Suku partner site from the partnership card and the footer at %s', async (path, t) => {
+    const res = await request(app.getHttpServer()).get(path).expect(200);
+    const sukuLinks = res.text.match(/<a href="https:\/\/hellosuku\.cm" target="_blank" rel="noopener noreferrer"/g) ?? [];
+    expect(sukuLinks.length).toBe(3);
+    expect(res.text).toContain(escapeHtml(t.partnership.cta));
+    const footer = res.text.slice(res.text.indexOf('<footer'));
+    expect(footer).toContain('href="https://hellosuku.cm"');
+  });
+
   it('redirects the old /en URLs permanently', async () => {
     const server = app.getHttpServer();
     await request(server).get('/en').expect(301).expect('Location', '/?lang=en');

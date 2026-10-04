@@ -127,7 +127,8 @@ export const en: SiteContent = {
     title: 'Our partnership with Suku',
     description:
       'An educational platform that shares our vision: additional learning resources, digital progress tracking and a wider learning community.',
-    logoAlt: 'Logo of Suku, our partner',
+    logoAlt: 'Suku, our partner (hellosuku.cm website)',
+    cta: 'Visit Suku',
   },
   teacherRecruitment: {
     title: 'Are you a teacher?',

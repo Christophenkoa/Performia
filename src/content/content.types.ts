@@ -65,7 +65,7 @@ export interface SiteContent {
     other: { title: string; description: string; cta: string };
   };
   testimonials: { title: string; cards: Testimonial[] };
-  partnership: { title: string; description: string; logoAlt: string };
+  partnership: { title: string; description: string; logoAlt: string; cta: string };
   teacherRecruitment: { title: string; description: string; cta: string };
   finalCta: { title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string };
   footer: { tagline: string; contact: string; whatsapp: string; followUs: string; partnership: string; copyright: string };

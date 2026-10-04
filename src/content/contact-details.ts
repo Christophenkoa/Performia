@@ -8,4 +8,5 @@ export const CONTACT_DETAILS = {
   email: 'contact@helloperformia.com',
   facebookUrl: 'https://facebook.com', // TODO: verify - generic link copied from the live site
   instagramUrl: 'https://instagram.com', // TODO: verify - generic link copied from the live site
+  partnerUrl: 'https://hellosuku.cm', // Suku, confirmed by the client on 2026-10-04
 } as const;
