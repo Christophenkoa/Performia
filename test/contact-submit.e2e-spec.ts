@@ -104,7 +104,10 @@ describe('Contact submission (e2e)', () => {
     for (let i = 0; i < 5; i++) {
       await agent.post('/contact').type('form').send({ ...valid, _csrf: token }).expect(303);
     }
-    await agent.post('/contact').type('form').send({ ...valid, _csrf: token }).expect(429);
+    const limited = await agent.post('/contact').type('form').send({ ...valid, _csrf: token }).expect(429);
+    expect(limited.text).toContain(escapeHtml(fr.errorPage.tooManyRequests.title));
+    expect(limited.text).toContain('<meta name="robots" content="noindex" />');
+    expect(limited.text).toContain('href="/contact"');
     expect(notify).toHaveBeenCalledTimes(5);
   });
 });

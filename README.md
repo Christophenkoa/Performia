@@ -52,4 +52,4 @@ Serve over HTTPS (cookies are `Secure` in production). Set `TRUST_PROXY=true` be
 ## Open points before launch
 
 - **Contact requests are not delivered yet.** The v1 notifier only logs the sender's name and email; phone, subject and message are dropped (they must not go into logs). Before launch, add a ContactNotifier that sends an email or stores requests, see "Where things live".
-- Search for `TODO: verify` in `src/content/`: the "847 familles" and "92%" figures, the testimonials, the refund guarantee and the social media URLs come from the old site and need confirmation.
+- Search for `TODO: verify` in `src/content/`: the "92%" figure, the testimonials, the refund guarantee and the social media URLs come from the old site and need confirmation.

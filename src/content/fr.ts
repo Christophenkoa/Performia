@@ -18,7 +18,7 @@ export const fr: SiteContent = {
     subheadline: "Un encadrement académique personnalisé et de qualité pour garantir l'excellence scolaire de votre enfant",
     ctaPrimary: 'Inscrire mon enfant',
     ctaSecondary: 'Découvrir le programme',
-    trustText: 'Rejoignez plus de 847 familles qui nous font confiance', // TODO: verify figure
+    trustText: 'Rejoignez de nombreuses familles qui nous font confiance',
   },
   trustBlock: {
     title: 'Pourquoi nous choisir ?',
@@ -278,5 +278,12 @@ export const fr: SiteContent = {
     title: 'Formulaire expiré',
     csrfMessage: 'Pour votre sécurité, ce formulaire a expiré. Veuillez recharger la page et réessayer.',
     back: 'Retour au formulaire',
+    backHome: "Retour à l'accueil",
+    notFound: { title: 'Page introuvable', message: "La page demandée n'existe pas ou a été déplacée." },
+    tooManyRequests: {
+      title: 'Trop de tentatives',
+      message: 'Vous avez envoyé trop de messages en peu de temps. Veuillez réessayer dans une minute ou nous écrire sur WhatsApp.',
+    },
+    serverError: { title: 'Une erreur est survenue', message: 'Veuillez réessayer dans quelques instants.' },
   },
 };

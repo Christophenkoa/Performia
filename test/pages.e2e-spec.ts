@@ -67,6 +67,10 @@ describe('Pages (e2e)', () => {
     expect(csp).toContain("default-src 'self'");
     expect(csp).toContain("script-src 'self'");
     expect(csp).toContain("style-src 'self'");
+    expect(csp).toContain("frame-ancestors 'none'");
+    expect(csp).toContain("object-src 'none'");
+    expect(csp).toContain("img-src 'self';");
+    expect(csp).not.toContain('data:');
     expect(res.headers['x-content-type-options']).toBe('nosniff');
     expect(res.headers['x-powered-by']).toBeUndefined();
     expect(res.headers['set-cookie']).toBeUndefined();
@@ -99,5 +103,22 @@ describe('Pages (e2e)', () => {
     expect(res.text).toContain('id="approach"');
     expect(res.text).toContain('src="/img/suku.png"');
     await request(app.getHttpServer()).get('/img/suku.png').expect(200).expect('Content-Type', /png/);
+  });
+
+  it('renders a localized HTML 404 page that search engines skip', async () => {
+    const frRes = await request(app.getHttpServer()).get('/does-not-exist').expect(404);
+    expect(frRes.headers['content-type']).toMatch(/html/);
+    expect(frRes.text).toContain(escapeHtml(fr.errorPage.notFound.title));
+    expect(frRes.text).toContain('<meta name="robots" content="noindex" />');
+    expect(frRes.text).not.toContain('rel="canonical"');
+    const enRes = await request(app.getHttpServer()).get('/en/does-not-exist').expect(404);
+    expect(enRes.text).toContain(escapeHtml(en.errorPage.notFound.title));
+    expect(enRes.text).toContain('<html lang="en">');
+  });
+
+  it('keeps normal pages indexable', async () => {
+    const res = await request(app.getHttpServer()).get('/').expect(200);
+    expect(res.text).toContain('rel="canonical"');
+    expect(res.text).not.toContain('noindex');
   });
 });

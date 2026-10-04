@@ -18,7 +18,7 @@ export const en: SiteContent = {
     subheadline: "Personalized, quality academic support to guarantee your child's academic excellence",
     ctaPrimary: 'Enroll my child',
     ctaSecondary: 'Discover the program',
-    trustText: 'Join over 847 families who trust us', // TODO: verify figure
+    trustText: 'Join many families who trust us',
   },
   trustBlock: {
     title: 'Why choose us?',
@@ -275,5 +275,12 @@ export const en: SiteContent = {
     title: 'Form expired',
     csrfMessage: 'For your security, this form has expired. Please reload the page and try again.',
     back: 'Back to the form',
+    backHome: 'Back to home',
+    notFound: { title: 'Page not found', message: 'The page you requested does not exist or has moved.' },
+    tooManyRequests: {
+      title: 'Too many attempts',
+      message: 'You sent too many messages in a short time. Please try again in a minute or write to us on WhatsApp.',
+    },
+    serverError: { title: 'Something went wrong', message: 'Please try again in a moment.' },
   },
 };

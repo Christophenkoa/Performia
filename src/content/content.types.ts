@@ -31,6 +31,11 @@ export interface Testimonial {
   rating: number;
 }
 
+export interface ErrorCopy {
+  title: string;
+  message: string;
+}
+
 export interface SiteContent {
   brand: string;
   meta: { homeTitle: string; homeDescription: string; contactTitle: string; contactDescription: string };
@@ -93,5 +98,13 @@ export interface SiteContent {
     privacyNotice: string;
     errors: Record<ContactField, string>;
   };
-  errorPage: { title: string; csrfMessage: string; back: string };
+  errorPage: {
+    title: string;
+    csrfMessage: string;
+    back: string;
+    backHome: string;
+    notFound: ErrorCopy;
+    tooManyRequests: ErrorCopy;
+    serverError: ErrorCopy;
+  };
 }

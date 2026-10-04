@@ -54,5 +54,14 @@ describe('Contact page (e2e)', () => {
     expect(resFr.text).toContain(escapeHtml(fr.errorPage.title));
     const resEn = await request(app.getHttpServer()).post('/en/contact').type('form').send({ name: 'x' }).expect(403);
     expect(resEn.text).toContain(escapeHtml(en.errorPage.title));
+    expect(resFr.text).toContain('<meta name="robots" content="noindex" />');
+    expect(resFr.text).not.toContain('rel="canonical"');
+    expect(resFr.text).not.toContain('rel="alternate"');
+  });
+
+  it('is never cached, because it embeds a per-visitor CSRF token', async () => {
+    const server = app.getHttpServer();
+    await request(server).get('/contact').expect(200).expect('Cache-Control', 'no-store');
+    await request(server).get('/en/contact').expect(200).expect('Cache-Control', 'no-store');
   });
 });
